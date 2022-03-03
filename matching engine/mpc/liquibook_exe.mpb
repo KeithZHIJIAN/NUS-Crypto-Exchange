@@ -1,8 +1,0 @@
-project {
-  specific(prop:microsoft) {
-    Release::exeout = $(LIQUIBOOK_ROOT)/Output/Release
-    Debug::exeout = $(LIQUIBOOK_ROOT)/Output/Debug
-  } else {
-    exeout = $(LIQUIBOOK_ROOT)/bin
-  }
-}

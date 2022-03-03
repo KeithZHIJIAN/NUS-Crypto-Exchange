@@ -1,3 +1,0 @@
-project : liquibook, liquibook_exe, liquibook_book, liquibook_simple{
-  exeout = $(LIQUIBOOK_ROOT)/bin/test
-}
