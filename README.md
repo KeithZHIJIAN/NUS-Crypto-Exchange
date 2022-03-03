@@ -16,3 +16,5 @@ To compile:
 - ```g++ -c util/Util.cpp```
 - ```g++ -o output main.o Market.o Order.o Util.o -lmysqlclient```
 - ```./output```
+
+For now, these instructions are done mannually, a makefile will be made in the near future. 
