@@ -45,8 +45,8 @@ MYSQL_RES *connectMySQL()
 
     struct connection_details mysql_details = {
         "localhost",
-        "root",
-        "S0101.zj",
+        "UserNameChangeme",
+        "PasswordChangeme",
         "orders"};
     con = mysql_connection_setup(mysql_details);
     res = mysql_execute_query(con, "SELECT * FROM orders");
