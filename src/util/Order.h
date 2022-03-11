@@ -123,7 +123,7 @@ namespace orderentry
         void onReplaced(const int32_t &size_delta,
                         liquibook::book::Price new_price);
 
-        void onReplaceRejected(const char *reaseon);
+        void onReplaceRejected(const char *reason);
 
     private:
         std::string id_;
