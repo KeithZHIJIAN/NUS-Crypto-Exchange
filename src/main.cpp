@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
      //connection to cloud database on heruko
     //cloud data not ingested yet!
-    string connection_string("host=ec2-54-158-26-89.compute-1.amazonaws.com port=5432 dbname=dec404vjrgfhr0 username=xoevbdvaachvdx password=c4b62bcf0eff8509d47053c976bcf8ad182fcc8d5b3d24891a0e511db0ddb2b2");
+    string connection_string("host=ec2-54-158-26-89.compute-1.amazonaws.com port=5432 dbname=dec404vjrgfhr0 username=xoevbdvaachvdx password=TOBEFILLED");
 
     pqxx:: connection con(connection_string.c_str());
 
