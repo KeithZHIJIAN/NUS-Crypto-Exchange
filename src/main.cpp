@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <pqxx/pqxx>
+#include <pqxx/pqxx> 
 
 using namespace std;
 
@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
      //connection to cloud database on heruko
     //cloud data not ingested yet!
-    string connection_string("host=ec2-54-158-26-89.compute-1.amazonaws.com port=5432 dbname=dec404vjrgfhr0 username=xoevbdvaachvdx password=TOBEFILLED");
+    string connection_string("host=ec2-174-129-243-38.compute-1.amazonaws.com port=5432 dbname=d1ukrr343q5f00 username=nmcmhfmbmnobaf password=TOBEFILLED");
 
     pqxx:: connection con(connection_string.c_str());
 
