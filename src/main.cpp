@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     pqxx::work wrk(con);
     //executing query to fetch database
-    pqxx:result res = wrk.exec("SELECT * FROM ORDERS");
+    pqxx:result res = wrk.exec("SELECT * FROM orders");
 
     if (res.size() < 1)
     {
