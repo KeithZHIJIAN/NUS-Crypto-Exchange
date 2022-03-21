@@ -10,3 +10,9 @@ sudo apt-get install postgresql-server-dev-12
 ```
 
 The C++ environment is set up now.
+
+To compile the main.cpp, you need to use
+```
+g++ -std=c++17 main.cpp -lpqxx -lpq
+```
+and it will generate an executable file named ```a.output```, use command ```./a.output``` to run it in terminal.
