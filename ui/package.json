@@ -1,7 +1,7 @@
 {
-  "name": "he-wenbin",
+  "name": "NUS-Crypto-Exchange-FrontEnd",
   "version": "1.0.0",
-  "description": "IT5007 (WithDatabase) - UI",
+  "description": "This is a front end project for nus crypto exchange",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -w server ./uiserver.js",
@@ -12,11 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vasansr/pro-mern-stack-2.git"
+    "url": "git+https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
   },
   "author": "hewenbin243854232@outlook.com",
   "license": "ISC",
-  "homepage": "https://github.com/vasansr/pro-mern-stack-2",
+  "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git",
   "dependencies": {
     "dotenv": "^6.2.0",
     "http-proxy-middleware": "^0.19.1",

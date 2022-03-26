@@ -50,7 +50,11 @@ db.wallet.createIndex({ balance: 1 });
 
 db.history.remove({});
 let myDate = new Date();//获取系统当前时间
-db.history.insert({ id:0, time: `${myDate.getHours()}:${myDate.getMinutes()}`, balance: balance });
+if (myDate.getMinutes()<10) {
+  db.history.insert({ id:0, time: `${myDate.getHours()}:0${myDate.getMinutes()}`, balance: balance });
+} else {
+  db.history.insert({ id:0, time: `${myDate.getHours()}:${myDate.getMinutes()}`, balance: balance });
+}
 db.history.createIndex({ id: 1 }, { unique: true });
 db.history.createIndex({ time: 1 }); 
 db.history.createIndex({ balance: 1 });

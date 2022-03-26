@@ -20,6 +20,12 @@ async function addHistory(_, { history }) {
     
     const newHistory = Object.assign({}, history);
     newHistory.id = await getNextHistoryId('history')-1;
+    let myDate = new Date();//获取系统当前时间
+    if (myDate.getMinutes()<10) {
+        newHistory.time = `${myDate.getHours()}:0${myDate.getMinutes()}`;
+    } else {
+        newHistory.time = `${myDate.getHours()}:${myDate.getMinutes()}`;
+    }
     const result = await db.collection('history').insertOne(newHistory);
     const returnHistory = await db.collection('users').findOne({ _id: result.insertedId });
     if (returnHistory) {

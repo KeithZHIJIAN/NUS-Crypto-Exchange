@@ -31,7 +31,6 @@ type Type {
 }
 
 input HistoryInputs {
-  time: String!
   balance: Float!
 }
 
