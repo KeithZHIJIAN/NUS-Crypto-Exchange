@@ -30,7 +30,7 @@
 * User /logout (```Personal information``` button)
 
 ## Database structure
-* database name: coinbase
+* database name: NUSSwap
 * collections:
     * types: Record predefined types that can be traded
         * id: *[Int]* Unique
