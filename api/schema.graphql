@@ -1,0 +1,77 @@
+scalar GraphQLDate
+
+type Item {
+  _id: ID!
+  id: Int!
+  typeName: String!
+  balance: Float!
+}
+
+type User {
+  _id: ID!
+  id: Int!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+type History {
+  _id: ID!
+  id: Int!
+  time: String!
+  balance: Float!
+}
+
+type Type {
+  _id: ID!
+  id: Int!
+  typeName: String!
+  price: Float!
+}
+
+input HistoryInputs {
+  time: String!
+  balance: Float!
+}
+
+input UserInputs {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+input WalletItemInput {
+  id: Int!
+  modification: Float!
+}
+
+input WalletConvertItemInput {
+  idFrom: Int!
+  idTo: Int!
+  modification: Float!
+}
+
+##### Top level declarations
+
+type Query {
+  about: String!
+  users: [User]!
+  userFind(email: String!): User!
+  login(user: UserInputs!): String!
+  historyList: [History]!
+  typesList: [Type!]!
+  typeFind(id: Int): Type!
+  walletDetail: [Item]!
+  balanceDetail: Float!
+}
+
+type Mutation {
+  setAboutMessage(message: String!): String!
+  register(user: UserInputs!): String!
+  addHistory(history: HistoryInputs!): History!
+  walletItemBuy(item: WalletItemInput!): String!
+  walletItemSell(item: WalletItemInput!): String!
+  walletItemConvert(item: WalletConvertItemInput!): String!
+}
