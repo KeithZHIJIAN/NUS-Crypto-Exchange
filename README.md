@@ -8,7 +8,7 @@
 * api
     * cd api
     * npm install
-    * screen mongo
+    * screen mongod
     * mongo NUSSwap scripts/init.mongo.js
     * screen npm start
 * ui
