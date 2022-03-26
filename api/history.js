@@ -15,9 +15,9 @@ async function historyFind(_, { time }) {
     return historyMatch;
 }
 
-async function addHistory(_, { history }) {
+async function addHistory(_, history) {
     const db = getDb();
-    
+
     const newHistory = Object.assign({}, history);
     newHistory.id = await getNextHistoryId('history')-1;
     let myDate = new Date();//获取系统当前时间

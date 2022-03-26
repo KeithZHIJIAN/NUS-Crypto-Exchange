@@ -52,7 +52,8 @@ async function walletItemBuy(_, { item }) {
 
     /* let myDate = new Date();//获取系统当前时间
     await addHistory("server", { history: { time: `${myDate.getHours()}:${myDate.getMinutes()}`, balance: balance }}); */
-    await addHistory("server", { balance: balance });
+    const history = { balance: balance };
+    await addHistory("server", history);
 
     return `You have bought ${balanceChange} ${type.typeName}!`;
 }
@@ -72,7 +73,8 @@ async function walletItemSell(_, { item }) {
 
     /* let myDate = new Date();//获取系统当前时间
     await addHistory("server", { history: { time: `${myDate.getHours()}:${myDate.getMinutes()}`, balance: balance }}); */
-    await addHistory("server", { balance: balance });
+    const history = { balance: balance };
+    await addHistory("server", history);
 
     return `You sold ${modification} ${type.typeName}! Now, you have money ${balance}`;
 }
@@ -94,7 +96,8 @@ async function walletItemConvert(_, { item }) {
     const balance = await balanceDetail();
     /* let myDate = new Date();//获取系统当前时间
     await addHistory("server", { history: { time: `${myDate.getHours()}:${myDate.getMinutes()}`, balance: balance }}); */
-    await addHistory("server", { balance: balance });
+    const history = { balance: balance };
+    await addHistory("server", history);
 
     return `You convert ${modification} ${typeFrom.typeName} to ${balanceChange} ${typeTo.typeName}!`;
 }

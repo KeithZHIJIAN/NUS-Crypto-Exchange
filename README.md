@@ -1,8 +1,8 @@
 # NUS-Crypto-Exchange-FrontEnd
 
 ## Port Usage
-* api server: 8000
-* ui server: 3000
+* api server: 3000
+* ui server: 8000
 
 ## Setup
 * api
@@ -18,7 +18,7 @@
     * If need to recompile and rebundle, run following commands before ***screen npm start***:
         * npm run compile
         * npm run bundle
-* Enter ***localhost:3000*** on web browser
+* Enter ***localhost:8000*** on web browser
 
 ## Functions
 * Buy something (Buy/Sell button on ```Assets``` page)
