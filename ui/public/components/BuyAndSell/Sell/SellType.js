@@ -57,7 +57,7 @@ function NativeSelectContent(props) {
   }, /*#__PURE__*/React.createElement(_InputLabel.default, {
     variant: "standard",
     htmlFor: "uncontrolled-native"
-  }, "Buy"), /*#__PURE__*/React.createElement(_FormControl.default, {
+  }, "Sell"), /*#__PURE__*/React.createElement(_FormControl.default, {
     fullWidth: true
   }, /*#__PURE__*/React.createElement(_NativeSelect.default, {
     defaultValue: 0,

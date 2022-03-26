@@ -11,7 +11,7 @@ function NativeSelectContent(props) {
     <React.Fragment>
         <Box sx={{ minWidth: 120 }}>
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                Buy
+                {props.id}
             </InputLabel>
             <FormControl fullWidth>
                 <NativeSelect
@@ -36,9 +36,10 @@ export default class ConvertType extends React.Component {
 
     static contextTypes = {
         wallet: PropTypes.array,
+        types: PropTypes.array,
     };
 
     render() {
-      return <NativeSelectContent id={this.props.id} types={this.context.wallet}/>;
+      return <NativeSelectContent id={this.props.id} types={this.props.id == 'from'? this.context.wallet : this.context.types}/>;
     }
 }

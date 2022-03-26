@@ -57,7 +57,7 @@ function NativeSelectContent(props) {
   }, /*#__PURE__*/React.createElement(_InputLabel.default, {
     variant: "standard",
     htmlFor: "uncontrolled-native"
-  }, "Buy"), /*#__PURE__*/React.createElement(_FormControl.default, {
+  }, props.id), /*#__PURE__*/React.createElement(_FormControl.default, {
     fullWidth: true
   }, /*#__PURE__*/React.createElement(_NativeSelect.default, {
     defaultValue: 0,
@@ -84,7 +84,7 @@ var ConvertType = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/React.createElement(NativeSelectContent, {
         id: this.props.id,
-        types: this.context.wallet
+        types: this.props.id == 'from' ? this.context.wallet : this.context.types
       });
     }
   }]);
@@ -95,5 +95,6 @@ var ConvertType = /*#__PURE__*/function (_React$Component) {
 exports.default = ConvertType;
 
 _defineProperty(ConvertType, "contextTypes", {
-  wallet: _propTypes.default.array
+  wallet: _propTypes.default.array,
+  types: _propTypes.default.array
 });

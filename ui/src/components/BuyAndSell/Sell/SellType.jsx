@@ -11,7 +11,7 @@ function NativeSelectContent(props) {
     <React.Fragment>
         <Box sx={{ minWidth: 120 }}>
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                Buy
+                Sell
             </InputLabel>
             <FormControl fullWidth>
                 <NativeSelect
