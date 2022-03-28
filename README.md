@@ -18,3 +18,6 @@ To compile:
 - ```./output```
 
 For now, these instructions are done mannually, a makefile will be made in the near future. 
+
+To convert .o to .a linkable file, can do
+ar rvs Market.a Market.o
