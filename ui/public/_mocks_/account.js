@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var account = {
+  id: -1,
   displayName: '',
   email: '',
   photoURL: '/static/mock-images/avatars/avatar_default.jpg'

@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useFormik, Form, FormikProvider } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // material
 import { Stack, TextField, IconButton, InputAdornment } from '@mui/material';
@@ -9,10 +8,10 @@ import { LoadingButton } from '@mui/lab';
 // component
 import Iconify from '../Iconify';
 
+
 // ----------------------------------------------------------------------
 
 function RegisterFormContent(props) {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
@@ -39,16 +38,15 @@ function RegisterFormContent(props) {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const result = await props.register(firstName, lastName, email, password);
-      if (result) {
-        /* navigate('/', { replace: true }); */
-        setTimeout(() => { props.changePage('Assets'); }, 500); //wait for sometimqe
+      if (result == true) {
+        setTimeout(() => { setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/'); }, 100); //wait for sometime
       } else {
-        setTimeout(() => { props.changePage('Assets'); props.changePage('Register'); }, 10); //wait for sometimqe
-      }
+        setTimeout(() => { setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/register'); }, 10); //wait for sometime
+      };
     }
   });
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -122,13 +120,13 @@ function RegisterFormContent(props) {
 
 export default class RegisterForm extends React.Component {
   static contextTypes = {
-    changePage: PropTypes.func,  //接收传递的方法
     register: PropTypes.func,
+    webHistory: PropTypes.object,
   };
 
   render() {
     return (
-      <RegisterFormContent changePage={this.context.changePage} register={this.context.register} />
+      <RegisterFormContent register={this.context.register} webHistory={this.context.webHistory} />
     );
   }
 }

@@ -18,6 +18,7 @@ import Title from '../components/Title';
 import BuyAndSell from '../components/BuyAndSell/BuyAndSell';
 import PersonalInfo from '../components/PersonalInfo/PersonalInfo';
 import SendAndReceive from '../components/SendAndReceive/SendAndReceive';
+import { Helmet } from 'react-helmet-async';
 
 const drawerWidth = 220;
 
@@ -126,12 +127,9 @@ export default function HomepageContent(props) {
               }}
             >
               <BuyAndSell />
-              <SendAndReceive />
+              {/* <SendAndReceive /> */}
               <Divider orientation="vertical" variant="middle" flexItem />
               <PersonalInfo />
-              {/* <IconButton color="inherit" onClick={() => { alert('Personal information') }}>
-                <PersonIcon />
-              </IconButton> */}
             </Box>
           </Toolbar>
         </AppBar>

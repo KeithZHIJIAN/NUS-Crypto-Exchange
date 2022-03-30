@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Chart from '../components/Chart';
 import Balance from '../components/Balance';
+import Topup from '../components/Topup';
 import YourAssets from '../components/YourAssets';
 import Copyright from '../components/Copyright';
 import WatchList from '../components/WatchList/WatchList';
@@ -60,20 +61,18 @@ export default class AssetsPage extends React.Component {
                     <YourAssets />
                 </Paper>
                 </Grid>
-                {/* Balance */}
+                {/* Topup */}
                 <Grid item xs={10} md={4} lg={3}>
-                <Paper
-                    sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                    }}
-                >
-                    <div id='temp'>
-                    <Balance />
-                    </div>
-                </Paper>
+                    <Paper
+                        sx={{
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: 240,
+                        }}
+                    >
+                        <Topup />
+                    </Paper>
                 </Grid>
                 {/* WatchList */}
                 <Grid item xs={10} md={8} lg={9}>

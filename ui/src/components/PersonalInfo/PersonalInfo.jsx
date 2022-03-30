@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link as RouterLink, BrowserRouter } from 'react-router-dom';
+import { GoogleLogout } from 'react-google-login';
 // material
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
@@ -22,12 +23,12 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: 'eva:person-fill',
-    linkTo: '#',
+    linkTo: '/',
   },
   {
     label: 'Settings',
     icon: 'eva:settings-2-fill',
-    linkTo: '#',
+    linkTo: '/',
   }
 ];
 
@@ -43,6 +44,10 @@ function AccountPopover(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const logout = async () => {
+    await props.logout();
+  }
 
   return (
     <>
@@ -108,9 +113,20 @@ function AccountPopover(props) {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined" onClick={() => {props.logout()}}>
+          {props.account.email.indexOf('Google') > 0 ? 
+          (<GoogleLogout
+            clientId="610278992963-sjmc5hsd6vvui5f3a1fl2dtvfmtsm799.apps.googleusercontent.com"
+            render={renderProps => (
+              <Button fullWidth color="inherit" variant="outlined" onClick={renderProps.onClick} >
+                Logout
+              </Button>
+            )}
+            /* buttonText="Logout" */
+            onLogoutSuccess={logout}/>)
+          :
+          (<Button fullWidth color="inherit" variant="outlined" onClick={() => {props.logout()}}>
             Logout
-          </Button>
+          </Button>)}
         </Box>
       </MenuPopover>
     </>
@@ -130,8 +146,8 @@ export default class PersonalInfo extends React.Component {
 
     render() {
         return (
-            <React.Fragment><BrowserRouter>
-                <AccountPopover changePage={this.context.changePage} account={this.context.currentUser} logout={this.context.logout}/></BrowserRouter>
+            <React.Fragment>
+                <AccountPopover changePage={this.context.changePage} account={this.context.currentUser} logout={this.context.logout}/>
             </React.Fragment>
         )
     }

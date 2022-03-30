@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 // material
 import {
@@ -17,10 +17,10 @@ import { LoadingButton } from '@mui/lab';
 // component
 import Iconify from '../Iconify';
 
+
 // ----------------------------------------------------------------------
 
 function LoginFormContent(props) {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -31,25 +31,23 @@ function LoginFormContent(props) {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
-      remember: true
+      password: ''
     },
     validationSchema: LoginSchema,
     onSubmit: async () => {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      /* console.log(password); */
       const result = await props.login(email, password);
-      if (result) {
-        /* navigate('/', { replace: true }); */
-        setTimeout(() => {props.changePage('Assets'); }, 500); //wait for sometimqe
+      if (result == true) {
+        setTimeout(() => {setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/'); }, 100); //wait for sometime
       } else {
-        setTimeout(() => {props.changePage('Assets'); props.changePage('Login');}, 500); //wait for sometimqe
-      }
+        setTimeout(() => {setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/login');}, 10); //wait for sometime
+      };
+
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -89,18 +87,6 @@ function LoginFormContent(props) {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
-
-          <Link component={RouterLink} variant="subtitle2" to="#" underline="hover">
-            Forgot password?
-          </Link>
-        </Stack>
 
         <LoadingButton
           fullWidth
@@ -111,6 +97,8 @@ function LoginFormContent(props) {
         >
           Login
         </LoadingButton>
+
+        </Stack>
       </Form>
     </FormikProvider>
   );
@@ -118,13 +106,13 @@ function LoginFormContent(props) {
 
 export default class LoginForm extends React.Component {
   static contextTypes = {
-    changePage: PropTypes.func,  //接收传递的方法
     login: PropTypes.func,
+    webHistory: PropTypes.object,
   };
 
   render() {
     return (
-      <LoginFormContent changePage={this.context.changePage} login={this.context.login} />
+      <LoginFormContent login={this.context.login} webHistory={this.context.webHistory} />
     );
   }
 }

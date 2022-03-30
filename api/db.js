@@ -29,23 +29,24 @@ async function getNextHistoryId(name) {
   return result.value.current;
 }
 
-async function balanceDetail() {
+async function balanceDetail(_, { userId }) {
   const db = getDb();
-  const balance = await db.collection('balance').findOne({ _id: "balance" });
-  return balance.current;
+  const user = await db.collection('users').findOne({ id: userId });
+  return user.balance;
 }
 
-async function balanceUpdate( modification ) {
-  const result = await db.collection('balance').findOneAndUpdate(
-    { _id: "balance" },
-    { $inc: { current: modification } },
+async function balanceUpdate(userId, modification) {
+  const db = getDb();
+  const result = await db.collection('users').findOneAndUpdate(
+    { id: userId },
+    { $inc: { balance: modification } },
     { returnOriginal: false },
   );
-  return result.value.current;
+  return result.value.balance;
 }
 
 function getDb() {
   return db;
 }
 
-module.exports = { connectToDb, getNextUserId, getNextHistoryId, balanceDetail, balanceUpdate, getDb };
+module.exports = { connectToDb, getNextUserId, getNextHistoryId, getDb, balanceDetail, balanceUpdate, };

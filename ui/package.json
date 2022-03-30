@@ -7,8 +7,10 @@
     "start": "nodemon -w server ./uiserver.js",
     "compile": "npx babel src --presets @babel/react --out-dir public",
     "bundle": "browserify ./public/App.js -o ./public/App2.js",
+    "fast": "npm run compile && npm run bundle",
     "watch": "babel src --out-dir public --watch --verbose",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ui": "npm install && npm run compile && npm run bundle && screen npm start"
   },
   "repository": {
     "type": "git",
@@ -18,8 +20,6 @@
   "license": "ISC",
   "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git",
   "dependencies": {
-    "dotenv": "^6.2.0",
-    "http-proxy-middleware": "^0.19.1",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@iconify/react": "^3.1.4",
@@ -28,13 +28,16 @@
     "@mui/material": "^5.4.4",
     "@mui/styled-engine-sc": "^5.4.2",
     "browserify": "^17.0.0",
+    "dotenv": "^6.2.0",
     "express": "^4.17.3",
     "formik": "^2.2.9",
+    "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.18.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-login": "^5.2.2",
     "react-helmet-async": "^1.2.3",
-    "react-router-dom": "^6.2.2",
+    "react-router-dom": "^5.2.0",
     "react-ts-tradingview-widgets": "^1.0.9",
     "recharts": "^2.1.9",
     "styled-components": "^5.3.3",

@@ -1,9 +1,10 @@
 import { Link as RouterLink, BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PropTypes from 'prop-types';
+import { createHashHistory } from 'history'
 // material
 import { styled } from '@mui/material/styles';
-import { Card, Stack, Link, Container, Typography } from '@mui/material';
+import { Card, Box, Link, Container, Typography } from '@mui/material';
 // layouts
 import AuthLayout from '../components/AuthLayout';
 // components
@@ -29,6 +30,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
+  top: 0,
   maxWidth: 480,
   margin: 'auto',
   display: 'flex',
@@ -43,65 +45,64 @@ const ContentStyle = styled('div')(({ theme }) => ({
 function Login(props) {
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <RootStyle title="Login | Coinbase">
-          <AuthLayout>
-            Don't have an account? &nbsp;
-            {/* <Link underline="none" variant="subtitle2" component={RouterLink} to="/register"> */}
-            <Link underline="none" variant="subtitle2" onClick={() => {props.changePage('Register');}}>
-              Get started
-            </Link>
-          </AuthLayout>
-
-          {/* <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <img src="/static/illustrations/illustration_login.png" alt="login" />
-          </SectionStyle> */}
+      <RootStyle>
+        <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Typography variant="h3" sx={{ px: 5, mt: 0, mb: 5 }}>
+            Hi, Welcome Back
+          </Typography>
+          <img src="/img/background.jpg" alt="login" />
+        </SectionStyle>
           
-          <Container maxWidth="sm">
-            <ContentStyle>
-              <Stack sx={{ mb: 5 }}>
-                <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
-                </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
-              </Stack>
+        <Container sx={{m: -10}}>
 
-              <AuthSocial />
-
-              <LoginForm />
-
-              <Typography
-                variant="body2"
-                align="center"
-                sx={{
-                  mt: 3,
-                  display: { sm: 'none' }
-                }}
-              >
-                Don't have an account?&nbsp;
-                <Link variant="subtitle2" component={RouterLink} to="register" underline="hover">
+          <ContentStyle>
+            <Box sx={{ mb: 5, mt: -15 }}>
+              <AuthLayout>
+                Don't have an account? &nbsp;
+                <Link underline="none" variant="subtitle2" href="/#/register">
                   Get started
                 </Link>
+              </AuthLayout>
+              <Typography variant="h4" gutterBottom>
+                Sign in to NUSSwap
               </Typography>
-            </ContentStyle>
-          </Container>
-        </RootStyle>
-      </BrowserRouter>
+              <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+            </Box>
+
+            <AuthSocial id='login' login={props.login} register={props.register} />
+
+            <LoginForm />
+
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{
+                mt: 3,
+                display: { sm: 'none' }
+              }}
+            >
+              Don't have an account?&nbsp;
+              <Link variant="subtitle2" underline="hover">
+                Get started
+              </Link>
+            </Typography>
+          </ContentStyle>
+        </Container>
+      </RootStyle>
     </HelmetProvider>
   );
 }
 
 export default class LoginPage extends React.Component {
   static contextTypes = {
-    changePage: PropTypes.func  //接收传递的方法
+    login: PropTypes.func,
+    register: PropTypes.func,
+    /* webHistory: PropTypes.object, */
   };
 
   render() {
     return (
-      <Login changePage={this.context.changePage} />
+      <Login login={this.context.login} register={this.context.register} /* webHistory={this.context.webHistory} *//>
     );
   }
 }

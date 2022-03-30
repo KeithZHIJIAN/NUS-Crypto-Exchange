@@ -16,11 +16,13 @@ const resolvers = {
     users: user.users,
     userFind: user.userFind,
     login: user.login,
+    logout: user.logout,
     historyList: history.historyList,
     typesList: types.typesList,
     typeFind: types.typeFind,
     walletDetail: wallet.walletDetail,
     balanceDetail: db.balanceDetail,
+    currentUserQuery: user.currentUserQuery,
   },
   Mutation: {
     setAboutMessage: about.setMessage,
@@ -29,6 +31,7 @@ const resolvers = {
     walletItemBuy: wallet.walletItemBuy,
     walletItemSell: wallet.walletItemSell,
     walletItemConvert: wallet.walletItemConvert,
+    topup: user.topup,
   },
   GraphQLDate,
 };

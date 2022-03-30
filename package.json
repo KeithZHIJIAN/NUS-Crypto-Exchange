@@ -1,0 +1,15 @@
+{
+  "name": "NUS-Crypto-Exchange-FrontEnd",
+  "version": "1.0.0",
+  "description": "This is a front end project for nus crypto exchange",
+  "scripts": {
+    "start": "cd api && npm run api && cd .. && cd ui && npm run ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+  },
+  "author": "hewenbin243854232@outlook.com",
+  "license": "ISC",
+  "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+}

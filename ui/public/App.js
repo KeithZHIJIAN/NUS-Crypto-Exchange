@@ -8,21 +8,11 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _HomePage = _interopRequireDefault(require("./pages/HomePage"));
 
-var _AssetsPage = _interopRequireDefault(require("./pages/AssetsPage"));
+var _reactRouterDom = require("react-router-dom");
 
-var _TradePage = _interopRequireDefault(require("./pages/TradePage"));
+var _history = require("history");
 
-var _Assets = _interopRequireDefault(require("./listItems/Assets"));
-
-var _Trade = _interopRequireDefault(require("./listItems/Trade"));
-
-var _Pay = _interopRequireDefault(require("./listItems/Pay"));
-
-var _ForYou = _interopRequireDefault(require("./listItems/ForYou"));
-
-var _LearnAndEarn = _interopRequireDefault(require("./listItems/LearnAndEarn"));
-
-var _Notifications = _interopRequireDefault(require("./listItems/Notifications"));
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,18 +48,13 @@ var Toplevel = /*#__PURE__*/function (_React$Component) {
   function Toplevel() {
     _classCallCheck(this, Toplevel);
 
-    return _super.apply(this, arguments);
+    return _super.call(this);
   }
 
   _createClass(Toplevel, [{
     key: "render",
-    value:
-    /*     componentDidMount() {
-            const test = (<React.Fragment><AssetsPage /></React.Fragment>);
-            ReactDOM.render(test, document.getElementById('main'));
-        } */
-    function render() {
-      return /*#__PURE__*/React.createElement(_HomePage.default, null);
+    value: function render() {
+      return /*#__PURE__*/React.createElement(_reactRouterDom.HashRouter, null, /*#__PURE__*/React.createElement(_HomePage.default, null));
     }
   }]);
 

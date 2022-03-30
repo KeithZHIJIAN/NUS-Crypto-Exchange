@@ -1,26 +1,19 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import HomePage from './pages/HomePage';
-import AssetsPage from './pages/AssetsPage';
-import TradePage from './pages/TradePage';
-
-import Assets from './listItems/Assets';
-import Trade from './listItems/Trade';
-import Pay from './listItems/Pay';
-import ForYou from './listItems/ForYou';
-import LearnAndEarn from './listItems/LearnAndEarn';
-import Notifications from './listItems/Notifications';
+import {HashRouter as Router} from 'react-router-dom';
+import { createHashHistory } from 'history';
+import PropTypes from 'prop-types';
 
 
 class Toplevel extends React.Component {
-/*     componentDidMount() {
-        const test = (<React.Fragment><AssetsPage /></React.Fragment>);
-        ReactDOM.render(test, document.getElementById('main'));
-    } */
-
-    render() {
-        return <HomePage />
-    }
+  constructor() {
+      super();
+  }
+    
+  render() {
+      return (<Router><HomePage /></Router>);
+  }
 }
 
 const element = <Toplevel />;

@@ -5,31 +5,42 @@
 * ui server: 8000
 
 ## Setup
-* api
-    * cd api
-    * npm install
-    * screen mongod
-    * mongo NUSSwap scripts/init.mongo.js
-    * screen npm start
-* ui
-    * cd ui
-    * npm install
-    * screen npm start
-    * If need to recompile and rebundle, run following commands before ***screen npm start***:
-        * npm run compile
-        * npm run bundle
+* Automation
+    * cd ```Root directory```
+    * npm run start
+        * only need to enter ```Ctrl+A+D``` when creating screen
+* Manully
+    * api
+        * cd api
+        * npm install
+        * screen mongod
+            * enter ```Ctrl+A+D```
+        * mongo NUSSwap scripts/init.mongo.js
+        * screen npm start
+            * enter ```Ctrl+A+D```
+    * ui
+        * cd ui
+        * npm install
+        * screen npm start
+            * enter ```Ctrl+A+D```
+        * If need to recompile, run following commands:
+            * npm run fast
+
+## Web Browser
 * Enter ***localhost:8000*** on web browser
 
 ## Functions
-* Buy something (Buy/Sell button on ```Assets``` page)
-* Sell something (Buy/Sell button on ```Assets``` page)
-* Convert one type to another type (Buy/Sell button on ```Assets``` page)
-* View information of all Cryptocurrency (```Trade``` page)
-* User registration (```Register``` page)
-* User login (```Login``` page)
-* User /logout (```Personal information``` button)
+* User registration (```/#/register``` page)
+    * You can choose to register through Google API
+* User login (```/#/login``` page)
+    * You can choose to login through Google API
+* Buy something (Buy/Sell button on ```Assets``` tag)
+* Sell something (Buy/Sell button on ```Assets``` tag)
+* Convert one type to another type (Buy/Sell button on ```Assets``` tag)
+* Topup money (on ```Assets``` tag)
+* View information of all Cryptocurrency (```Trade``` tag)
 
-## Database structure
+## Database structure(MongoDB)
 * database name: NUSSwap
 * collections:
     * types: Record predefined types that can be traded
@@ -37,26 +48,29 @@
         * typeName: *[String]* Unique
         * price: *[Float]*
     * wallet: Record what the user have bought
-        * id: *[Int]* Unique
-        * typeName: *[String]* Unique
+        * id: *[Int]*
+        * userId: *[Int]*
+        * typeName: *[String]*
         * balance: *[Float]*
     * history: Record the change process of balance
-        * id: *[Int]* Unique
+        * id: *[Int]*
+        * userId: *[Int]*
         * time: *[String]*
         * balance: *[Float]*
     * historyCounter: Record the number of history items
-        * _id: history
+        * _id: *[String]*
         * current: *[Int]*
-    * balance: Record balance
-        * _id: balance
-        * current: *[Float]*
     * users: Record the information of users
         * id: *[Int]* Unique
         * email: *[String]* Unique
         * firstName: *[String]*
         * lastName: *[String]*
-        * photoURL: *[String]*
+        * balance: *[Float]*
     * userCounter: Record the number of users
-        * _id: users
+        * _id: *[String]*
         * current: *[Int]*
+    * currentUser: Record the information of current user
+        * _id: *[String]*
+        * currentId: *[Int]*
+        * email: *[String]*
     

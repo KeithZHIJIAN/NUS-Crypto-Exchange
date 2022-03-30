@@ -8,7 +8,7 @@ import Logo from './Logo';
 // ----------------------------------------------------------------------
 
 const HeaderStyle = styled('header')(({ theme }) => ({
-  top: 50,
+  top: 0,
   zIndex: 9,
   lineHeight: 0,
   width: '100%',
@@ -38,7 +38,7 @@ export default function AuthLayout({ children }) {
         variant="body2"
         sx={{
           display: { xs: 'none', sm: 'block' },
-          mt: { md: -2 },
+          mt: { md: 0 },
           textAlign: 'left',
         }}
       >

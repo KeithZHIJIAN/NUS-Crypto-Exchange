@@ -18,12 +18,12 @@ export default class MainListItems extends React.Component {
         <React.Fragment>
           <Assets/>
           <Trade/>
-          <Pay />
+          {/* <Pay />
           <ForYou />
           <LearnAndEarn />
           <Notifications />
           <Login />
-          <Register />
+          <Register /> */}
         </React.Fragment>
       )
     }

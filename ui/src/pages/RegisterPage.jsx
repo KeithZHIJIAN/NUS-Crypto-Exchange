@@ -29,6 +29,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
+  top: 0,
   maxWidth: 480,
   margin: 'auto',
   display: 'flex',
@@ -43,81 +44,78 @@ const ContentStyle = styled('div')(({ theme }) => ({
 function Register(props) {
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <RootStyle title="Register | Coinbase">
-          <AuthLayout>
-            Already have an account? &nbsp;
-            {/* <Link underline="none" variant="subtitle2" component={RouterLink} to="/login"> */}
-            <Link underline="none" variant="subtitle2" onClick={() => {props.changePage('Login');}}>
-              Login
-            </Link>
-          </AuthLayout>
+      <RootStyle>
+        <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Typography variant="h3" sx={{ px: 5, mt: 0, mb: 5 }}>
+            Have fun in NUSSwap
+          </Typography>
+          <img alt="register" src="/img/background.jpg" />
+        </SectionStyle>
 
-          <Container sx={{m: -10}}>
-            <ContentStyle>
-              <Box sx={{ mb: 5, mt: 10 }}>
-                <Typography variant="h4" gutterBottom>
-                  Get started absolutely free.
-                </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>
-                  Free forever. No credit card needed.
-                </Typography>
-              </Box>
+        <Container sx={{m: -10}}>
 
-              <AuthSocial />
-
-              <RegisterForm />
-
-              <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-                By registering, I agree to Minimal&nbsp;
-                <Link underline="always" color="textPrimary">
-                  Terms of Service
-                </Link>
-                &nbsp;and&nbsp;
-                <Link underline="always" color="textPrimary">
-                  Privacy Policy
-                </Link>
-                .
-              </Typography>
-
-              {/* <Typography
-                variant="subtitle2"
-                sx={{
-                  mt: 3,
-                  textAlign: 'center',
-                  display: { sm: 'none' }
-                }}
-              > */}
-              <Typography
-                variant="body2"
-                align="center"
-                sx={{
-                  mt: 3,
-                  display: { sm: 'none' }
-                }}
-              >
-                Already have an account?&nbsp;
-                <Link variant="subtitle2" component={RouterLink} to="login" underline="hover">
-                {/* <Link underline="hover" to="login" component={RouterLink}> */}
+          <ContentStyle>
+            <Box sx={{ mb: 5, mt: -15 }}>
+              <AuthLayout>
+                Already have an account? &nbsp;
+                <Link underline="none" variant="subtitle2" href="/#/login">
                   Login
                 </Link>
+              </AuthLayout>
+              <Typography variant="h4" gutterBottom>
+                Get started absolutely free.
               </Typography>
-            </ContentStyle>
-          </Container>
-        </RootStyle>
-      </BrowserRouter>
+              <Typography sx={{ color: 'text.secondary' }}>
+                Free forever. No credit card needed.
+              </Typography>
+            </Box>
+
+            <AuthSocial id='register' login={props.login} register={props.register} />
+
+            <RegisterForm />
+
+            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+              By registering, I agree to Minimal&nbsp;
+              <Link underline="always" color="textPrimary">
+                Terms of Service
+              </Link>
+              &nbsp;and&nbsp;
+              <Link underline="always" color="textPrimary">
+                Privacy Policy
+              </Link>
+              .
+            </Typography>
+
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{
+                mt: 3,
+                display: { sm: 'none' }
+              }}
+            >
+              Already have an account?&nbsp;
+              <Link variant="subtitle2" component={RouterLink} to="login" underline="hover">
+                Login
+              </Link>
+            </Typography>
+          </ContentStyle>
+        </Container>
+      </RootStyle>
     </HelmetProvider>
   );
 }
 
 export default class RegisterPage extends React.Component {
   static contextTypes = {
-    changePage: PropTypes.func,  //接收传递的方法
+    login: PropTypes.func,
+    register: PropTypes.func,
+    /* webHistory: PropTypes.object, */
   };
 
   render() {
     return (
-      <Register changePage={this.context.changePage} />
+      <Register login={this.context.login} register={this.context.register} /* webHistory={this.context.webHistory} *//>
     );
   }
 }
