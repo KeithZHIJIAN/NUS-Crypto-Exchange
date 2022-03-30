@@ -1,5 +1,8 @@
 # NUS-Crypto-Exchange-FrontEnd
 
+## Git
+* https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git
+
 ## Port Usage
 * api server: 3000
 * ui server: 8000
