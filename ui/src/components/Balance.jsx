@@ -7,7 +7,7 @@ let myDate = new Date();//获取系统当前时间
 
 function timeConvert(index) {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  return months.at(index-1);
+  return months.at(index);
 }
 
 function preventDefault(event) {

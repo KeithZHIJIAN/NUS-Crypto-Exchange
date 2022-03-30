@@ -8,12 +8,17 @@
 * ui server: 8000
 
 ## Setup
-* Automation
-    * cd ```Root directory```
+* git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git
+* (Automation)
+    * cd NUS-Crypto-Exchange-FrontEnd
     * npm run start
         * only need to enter ```Ctrl+A+D``` when creating screen
-* Manully
-    * api
+            * one for mongodb
+            * one for api server
+            * one for ui server
+* (Manully)
+    * cd NUS-Crypto-Exchange-FrontEnd
+    * (for api server)
         * cd api
         * npm install
         * screen mongod
@@ -21,7 +26,7 @@
         * mongo NUSSwap scripts/init.mongo.js
         * screen npm start
             * enter ```Ctrl+A+D```
-    * ui
+    * (for ui server)
         * cd ui
         * npm install
         * screen npm start
@@ -76,4 +81,3 @@
         * _id: *[String]*
         * currentId: *[Int]*
         * email: *[String]*
-    
