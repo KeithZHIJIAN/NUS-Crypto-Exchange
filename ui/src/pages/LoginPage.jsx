@@ -1,7 +1,5 @@
-import { Link as RouterLink, BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PropTypes from 'prop-types';
-import { createHashHistory } from 'history'
 // material
 import { styled } from '@mui/material/styles';
 import { Card, Box, Link, Container, Typography } from '@mui/material';

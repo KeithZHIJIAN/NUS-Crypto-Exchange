@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AssetsPage from './AssetsPage';
 import TradePage from './TradePage';

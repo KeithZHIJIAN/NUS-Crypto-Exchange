@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link as RouterLink, BrowserRouter } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
 // material
 import { alpha } from '@mui/material/styles';

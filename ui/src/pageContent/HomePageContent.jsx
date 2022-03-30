@@ -11,14 +11,11 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import PersonIcon from '@mui/icons-material/Person';
 import Button from '@mui/material/Button';
 import MainListItems from '../listItems/listItems';
 import Title from '../components/Title';
 import BuyAndSell from '../components/BuyAndSell/BuyAndSell';
 import PersonalInfo from '../components/PersonalInfo/PersonalInfo';
-import SendAndReceive from '../components/SendAndReceive/SendAndReceive';
-import { Helmet } from 'react-helmet-async';
 
 const drawerWidth = 220;
 

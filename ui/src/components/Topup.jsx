@@ -1,16 +1,13 @@
 import * as React from 'react';
 import Title from './Title';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
 
-let myDate = new Date();//获取系统当前时间
 
 function TopupContent(props) {
   const [values, setValues] = React.useState({

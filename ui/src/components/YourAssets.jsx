@@ -1,19 +1,12 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
-import SearchBar from './SearchBar';
 import { Box, Card, CardContent } from '@mui/material';
 import PropTypes from 'prop-types';
-
-function preventDefault(event) {
-  event.preventDefault();
-  alert("Have not developed!");
-}
 
 function YourAssetsContent(props) {
   return (
@@ -22,7 +15,6 @@ function YourAssetsContent(props) {
       <Card>
       <CardContent>
         <Title>Your assets</Title>
-        {/* <SearchBar /> */}
         <Table size="small">
           <TableHead>
             <TableRow>

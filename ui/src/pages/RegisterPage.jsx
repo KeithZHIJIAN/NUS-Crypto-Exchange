@@ -1,4 +1,4 @@
-import { Link as RouterLink, BrowserRouter } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PropTypes from 'prop-types';
 // material
