@@ -7,7 +7,8 @@
     "start": "nodemon -e js,graphql -w . -w .env server.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "api": "npm install && screen mongod && mongo NUSSwap scripts/init.mongo.js && screen npm start"
+    "api": "npm install && screen mongod && mongo NUSSwap scripts/init.mongo.js && screen npm start",
+    "dbInit": "mongo NUSSwap scripts/init.mongo.js"
   },
   "repository": {
     "type": "git",

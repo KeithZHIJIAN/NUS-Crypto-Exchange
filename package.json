@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "This is a front end project for nus crypto exchange",
   "scripts": {
-    "start": "cd api && npm run api && cd .. && cd ui && npm run ui"
+    "start": "cd api && npm run api && cd .. && cd ui && npm run ui",
+    "dbInit": "cd api && npm run dbInit"
   },
   "repository": {
     "type": "git",
