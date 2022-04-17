@@ -6,6 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Grid from '@mui/material/Grid';
 import BuyTextField from './Buy/BuyTextField';
+import BuyOrderTypeAndPrice from './Buy/BuyOrderTypeAndPrice';
 import BuyType from './Buy/BuyType';
 import BuyButton from './Buy/BuyButton';
 import SellTextField from './Sell/SellTextField';
@@ -40,6 +41,7 @@ function LabTabsContent(props) {
             spacing={1}
           >
             <Grid item xs><BuyTextField /></Grid>
+            <Grid item xs><BuyOrderTypeAndPrice /></Grid>
             <Grid item xs><BuyType /></Grid>
             <Grid item xs><BuyButton /></Grid>
           </Grid>

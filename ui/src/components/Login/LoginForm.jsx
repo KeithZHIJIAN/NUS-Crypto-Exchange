@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useFormik, Form, FormikProvider } from 'formik';
 // material
@@ -38,13 +38,24 @@ function LoginFormContent(props) {
       const password = document.getElementById('password').value;
       const result = await props.login(email, password);
       if (result == true) {
-        setTimeout(() => {setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/'); }, 100); //wait for sometime
+        setFieldValue("email", '');
+        setFieldValue("password", '');
+        setTimeout(() => {props.webHistory.replace('/'); }, 100); //wait for sometime
       } else {
-        setTimeout(() => {setFieldValue("email", ''); setFieldValue("password", ''); props.webHistory.replace('/login');}, 10); //wait for sometime
+        setFieldValue("email", '');
+        setFieldValue("password", '');
+        setTimeout(() => {props.webHistory.replace('/login'); }, 100); //wait for sometime
       };
 
     }
   });
+
+  useEffect(() => {
+    return () => {
+      setFieldValue("email", '');
+      setFieldValue("password", '');
+    };
+  }, []);
 
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
 

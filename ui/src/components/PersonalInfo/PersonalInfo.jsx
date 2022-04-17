@@ -19,16 +19,19 @@ const MENU_OPTIONS = [
     label: 'Home',
     icon: 'eva:home-fill',
     linkTo: '/',
+    page: 'Assets',
   },
   {
     label: 'Profile',
     icon: 'eva:person-fill',
     linkTo: '/',
+    page: 'Profile',
   },
   {
     label: 'Settings',
     icon: 'eva:settings-2-fill',
     linkTo: '/',
+    page: 'Setting',
   }
 ];
 
@@ -96,7 +99,7 @@ function AccountPopover(props) {
             key={option.label}
             to={option.linkTo}
             component={RouterLink}
-            onClick={(event) => { handleClose(); props.changePage('Assets');}}
+            onClick={(event) => { handleClose(); props.changePage(option.page);}}
             sx={{ typography: 'body2', py: 1, px: 2.5 }}
           >
             <Iconify

@@ -3,8 +3,8 @@ scalar GraphQLDate
 type Item {
   _id: ID!
   id: Int!
-  typeName: String!
-  balance: Float!
+  symbol: String!
+  quantity: Float!
 }
 
 type User {
@@ -15,6 +15,7 @@ type User {
   lastName: String!
   password: String!
   balance: Float!
+  photoURL: String!
 }
 
 type History {
@@ -24,10 +25,21 @@ type History {
   balance: Float!
 }
 
+type Order {
+  _id: ID!
+  id: Int!
+  currentState: String!
+  symbol: String!
+  quantity: Float!
+  price: Float!
+  amount: Float!
+}
+
 type Type {
   _id: ID!
   id: Int!
-  typeName: String!
+  symbol: String!
+  description: String!
   price: Float!
 }
 
@@ -38,6 +50,7 @@ type Balance {
 type CurrentUser {
   currentId: Int!
   email: String!
+  photoURL: String!
 }
 
 input HistoryInputs {
@@ -50,24 +63,37 @@ input UserInputs {
   firstName: String!
   lastName: String!
   password: String!
+  photoURL: String!
 }
 
 input WalletItemInput {
   userId: Int!
   id: Int!
-  modification: Float!
+  quantity: Float!
+  price: Float
 }
 
 input WalletConvertItemInput {
   userId: Int!
   idFrom: Int!
   idTo: Int!
-  modification: Float!
+  quantity: Float!
 }
 
 input TopupInput {
   userId: Int!
   amount: Float!
+}
+
+input ProfileInput {
+  userId: Int!
+  firstName: String!
+  lastName: String!
+}
+
+input PasswordInput {
+  userId: Int!
+  password: String!
 }
 
 ##### Top level declarations
@@ -79,6 +105,7 @@ type Query {
   login(user: UserInputs!): String!
   logout: String!
   historyList(userId: Int!): [History]!
+  orderList(userId: Int!): [Order]!
   typesList: [Type!]!
   typeFind(id: Int!): Type!
   walletDetail(userId: Int!): [Item]!
@@ -94,4 +121,6 @@ type Mutation {
   walletItemSell(item: WalletItemInput!): String!
   walletItemConvert(item: WalletConvertItemInput!): String!
   topup(topupInput: TopupInput!): Float!
+  updateProfile(profileInput: ProfileInput!): String!
+  updatePassword(passwordInput: PasswordInput!): String!
 }

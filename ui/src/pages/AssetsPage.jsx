@@ -8,6 +8,7 @@ import Chart from '../components/Chart';
 import Balance from '../components/Balance';
 import Topup from '../components/Topup';
 import YourAssets from '../components/YourAssets';
+import OrderList from '../components/OrderList';
 import Copyright from '../components/Copyright';
 import WatchList from '../components/WatchList/WatchList';
 
@@ -72,6 +73,12 @@ export default class AssetsPage extends React.Component {
                         }}
                     >
                         <Topup />
+                    </Paper>
+                </Grid>
+                {/* OrderList */}
+                <Grid item xs={10} md={8} lg={9}>
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        <OrderList num={5}/>
                     </Paper>
                 </Grid>
                 {/* WatchList */}

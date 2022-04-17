@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 function InputAdornmentsContent(props) {
   const [values, setValues] = React.useState({
-    amount: 0,
+      quantity: 0,
   });
 
   const handleChange = (prop) => (event) => {
@@ -20,16 +20,16 @@ function InputAdornmentsContent(props) {
         <div>
             <FormControl sx={{ m: 1, width: '25ch', p: 1, mx: 'auto', }} variant="outlined">
                 <OutlinedInput
-                    id="outlined-adornment-amount"
-                    value={values.amount}
-                    onChange={handleChange('amount')}
-                    endAdornment={<InputAdornment position="end">SGD</InputAdornment>}
-                    aria-describedby="outlined-amount-helper-text"
+                    id="quantity"
+                    value={values.quantity}
+                    onChange={handleChange('quantity')}
+                    endAdornment={<InputAdornment position="end">{/*SGD*/}</InputAdornment>}
+                    aria-describedby="outlined-quantity-helper-text"
                     inputProps={{
-                    'aria-label': 'amount',
+                    'aria-label': 'quantity',
                     }}
                 />
-                <FormHelperText id="outlined-amount-helper-text">You can buy up to SGD {props.balance}</FormHelperText>
+                <FormHelperText id="outlined-quantity-helper-text">You can buy up to SGD {props.balance}</FormHelperText>
             </FormControl>
         </div>
     </Box>

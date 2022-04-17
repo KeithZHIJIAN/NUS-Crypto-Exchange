@@ -5,24 +5,29 @@ import AssetsPage from './AssetsPage';
 import TradePage from './TradePage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
+import OrderPage from './OrderPage';
+import SettingPage from "./SettingPage";
+import ProfilePage from './ProfilePage';
+import BlogPage from './BlogPage';
 import HomePageContent from '../pageContent/HomePageContent';
 import account from '../_mocks_/account';
 import graphQLFetch from '../graphQLFetch';
 import { createHashHistory } from 'history';
+
 
 //保留n位小数
 function roundFun(value, n) {
   return Math.round(value*Math.pow(10,n))/Math.pow(10,n);
 }
 
-// For copy of dictionary, use slice for array
-function clone(obj) {
-  var copy = {};
-  for (var attr in obj) {
-    copy[attr] = typeof(obj[attr])==='object' ? clone(obj[attr]) : obj[attr];
-  }
-  return copy;
-}
+// // For copy of dictionary, use slice for array
+// function clone(obj) {
+//   var copy = {};
+//   for (var attr in obj) {
+//     copy[attr] = typeof(obj[attr])==='object' ? clone(obj[attr]) : obj[attr];
+//   }
+//   return copy;
+// }
 
 export default class Homepage extends React.Component {
   constructor() {
@@ -32,6 +37,7 @@ export default class Homepage extends React.Component {
       balance: 0,
       types: [],
       wallet: [],
+      orders: [],
       currentUser: account,
       history: [],
       webHistory: createHashHistory(),
@@ -45,11 +51,15 @@ export default class Homepage extends React.Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.getAssets = this.getAssets.bind(this);
+    this.getOrders = this.getOrders.bind(this);
     this.walletQuery = this.walletQuery.bind(this);
     this.historyQuery = this.historyQuery.bind(this);
+    this.orderQuery = this.orderQuery.bind(this);
     this.balanceQuery = this.balanceQuery.bind(this);
     this.userQuery = this.userQuery.bind(this);
     this.topup = this.topup.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
+    this.updatePassword = this.updatePassword.bind(this);
   }
 
   async componentDidMount() {
@@ -72,7 +82,10 @@ export default class Homepage extends React.Component {
     login: PropTypes.func,
     logout: PropTypes.func,
     getAssets: PropTypes.func,
+    getOrders: PropTypes.func,
     topup: PropTypes.func,
+    updateProfile: PropTypes.func,
+    updatePassword: PropTypes.func,
   };
 
   //将参数和处理方法传递给context
@@ -92,14 +105,17 @@ export default class Homepage extends React.Component {
       login: this.login,
       logout: this.logout,
       getAssets: this.getAssets,
+      getOrders: this.getOrders,
       topup: this.topup,
+      updateProfile: this.updateProfile,
+      updatePassword: this.updatePassword,
     };
   }
 
   async currentUserQueryFunction() {
     const query = `query { 
       currentUserQuery {
-        currentId, email
+        currentId, email, photoURL
       } 
     }`;
     const result = await graphQLFetch(query);
@@ -108,41 +124,84 @@ export default class Homepage extends React.Component {
 
   async topup() {
     const topupAmount = document.getElementById("topup").value;
-    const userId = this.state.currentUser.id;
-    const topupInput = { amount: topupAmount, userId: userId };
-    const mutation = `mutation topup($topupInput: TopupInput!) {
-      topup(topupInput: $topupInput)
-    }`;
-    const result = await graphQLFetch(mutation, { topupInput });
-    const newBalance = result.topup;
-    console.log(newBalance);
+    if (topupAmount <= 0) {
+      alert('You should enter a positive value!');
+    } else {
+      const userId = this.state.currentUser.id;
+      const topupInput = {amount: topupAmount, userId: userId};
+      const mutation = `mutation topup($topupInput: TopupInput!) {
+        topup(topupInput: $topupInput)
+      }`;
+      const result = await graphQLFetch(mutation, {topupInput});
+      const newBalance = result.topup;
+      console.log(newBalance);
 
-    const newHistory = await this.historyQuery(userId);
+      const newHistory = await this.historyQuery(userId);
 
-    this.setState({ balance: newBalance, history: newHistory }, ()=>{} );
+      this.setState({balance: newBalance, history: newHistory}, () => {alert(`You add ${parseFloat(topupAmount)} SGD into your amount`)});
+    }
   }
 
-  async loadData(userId, email) {
+  async updateProfile(firstName, lastName) {
+    if (firstName + ' ' + lastName == this.state.currentUser.displayName) {
+      alert('Nothing change, please check what you enter!');
+    } else {
+      const profileInput = {userId: this.state.currentUser.id, firstName: firstName, lastName: lastName};
+      const mutation = `mutation updateProfile($profileInput: ProfileInput!) {
+        updateProfile(profileInput: $profileInput)
+      }`;
+      const result = await graphQLFetch(mutation, {profileInput});
+      const newDisplayName = firstName + ' ' + lastName;
+      const newUser = Object.assign({}, this.state.currentUser);
+      newUser.displayName = newDisplayName;
+      this.setState({currentUser: newUser}, alert(`You have changed your firstName to ${firstName}, and lastName to ${lastName}`));
+    }
+  }
+
+  async updatePassword(password, confirm) {
+    if (password == '' || confirm == '') {
+      alert('You must enter the new password twice');
+      return false;
+    }
+    if (password.length * confirm.length < 9) {
+      alert('Your new password is too short');
+      return false;
+    }
+    if (password != confirm) {
+      alert('You must enter the new password twice correctly');
+      return false;
+    }
+    const passwordInput = {userId: this.state.currentUser.id, password: password};
+    const mutation = `mutation updatePassword($passwordInput: PasswordInput!) {
+      updatePassword(passwordInput: $passwordInput)
+    }`;
+    const result = await graphQLFetch(mutation, {passwordInput});
+    alert(result.updatePassword);
+  }
+
+  async loadData(userId, email, photoURL) {
     const resultFind = await this.userQuery(email);
     const currentUser =
     {
       id: resultFind.userFind.id,
       displayName: resultFind.userFind.firstName + ' ' + resultFind.userFind.lastName,
       email: email,
-      photoURL: '/static/mock-images/avatars/avatar_' + String(resultFind.userFind.id % 25) + '.jpg',
+      // photoURL: '/static/mock-images/avatars/avatar_' + String(resultFind.userFind.id % 25) + '.jpg',
+      photoURL: photoURL,
     };
 
     const newBalance = resultFind.userFind.balance;
     const newtypes = await this.typesQuery();
     const newWallet = await this.walletQuery(userId);
     const newHistory = await this.historyQuery(userId);
-    this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes }, ()=>{} );
+    const newOrders = await this.orderQuery(userId);
+    this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes, orders: newOrders }, ()=>{} );
   }
 
   async userQuery(email) {
     const queryUser = `query userFind($email: String!) {
       userFind(email: $email) {
-        _id id email firstName lastName password balance
+        _id id email firstName lastName password balance photoURL
       }
     }`;
     const resultFind = await graphQLFetch(queryUser, { email });
@@ -152,7 +211,7 @@ export default class Homepage extends React.Component {
   async typesQuery() {
     const typesList = `query {
       typesList {
-        id typeName price
+        id symbol description price
       }
     }`;
     const typesResult = await graphQLFetch(typesList);
@@ -163,7 +222,7 @@ export default class Homepage extends React.Component {
   async walletQuery(userId) {
     const walletDetail = `query walletDetail($userId: Int!) {
       walletDetail(userId: $userId) {
-        id typeName balance
+        id symbol quantity
       }
     }`;
     const walletResult = await graphQLFetch(walletDetail, { userId });
@@ -185,6 +244,17 @@ export default class Homepage extends React.Component {
     return newHistory;
   }
 
+  async orderQuery(userId) {
+    const orderList = `query orderList($userId: Int!) {
+      orderList(userId: $userId) {
+        id currentState symbol quantity price amount
+      }
+    }`;
+    const orderResult = await graphQLFetch(orderList, { userId });
+    const newOrders = orderResult.orderList;
+    return newOrders;
+  }
+
   async balanceQuery(userId) {
     const balanceDetail = `query balanceDetail($userId: Int!) {
       balanceDetail (userId: $userId)
@@ -202,10 +272,12 @@ export default class Homepage extends React.Component {
       alert(result.logout);
     } else {
       alert("You have not logged in!");
-    };
+    }
   }
 
-  async login(email, password, photoURL='') {
+  async login(email, password) {
+    this.changePage("Assets");
+
     if (this.state.currentUser.email != '') {
       alert("You have logged in");
       return true;
@@ -213,7 +285,7 @@ export default class Homepage extends React.Component {
 
     const queryUserList = `query {
       users {
-        id email firstName lastName password balance
+        id email firstName lastName password balance photoURL
       }
     }`;
     const userList = await graphQLFetch(queryUserList);
@@ -231,6 +303,7 @@ export default class Homepage extends React.Component {
       firstName: '',
       lastName: '',
       password: password,
+      photoURL: '',
     };
 
     const data = await graphQLFetch(query, { user });
@@ -243,7 +316,7 @@ export default class Homepage extends React.Component {
           id: resultFind.userFind.id,
           displayName: resultFind.userFind.firstName + ' ' + resultFind.userFind.lastName,
           email: email,
-          photoURL: photoURL == ''? '/static/mock-images/avatars/avatar_' + String(resultFind.userFind.id % 25) + '.jpg' : photoURL,
+          photoURL: resultFind.userFind.photoURL,
         };
         const userId = currentUser.id;
         const newBalance = resultFind.userFind.balance;
@@ -253,8 +326,10 @@ export default class Homepage extends React.Component {
         const newWallet = await this.walletQuery(userId);
 
         const newHistory = await this.historyQuery(userId);
+
+        const newOrders = await this.orderQuery(userId);
         
-        this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes });
+        this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes, orders: newOrders });
         return true;
       }
     }
@@ -262,6 +337,8 @@ export default class Homepage extends React.Component {
   }
 
   async register(firstName, lastName, email, password, photoURL='') {
+    this.changePage("Assets");
+
     const mutation = `mutation register($user: UserInputs!) {
       register(user: $user)
     }`;
@@ -271,6 +348,7 @@ export default class Homepage extends React.Component {
       firstName: firstName,
       lastName: lastName,
       password: password,
+      photoURL: photoURL == ''? '' : photoURL,
     };
 
     const data = await graphQLFetch(mutation, { user });
@@ -283,7 +361,7 @@ export default class Homepage extends React.Component {
           id: resultFind.userFind.id,
           displayName: resultFind.userFind.firstName + ' ' + resultFind.userFind.lastName,
           email: email,
-          photoURL: photoURL == ''? '/static/mock-images/avatars/avatar_' + String(resultFind.userFind.id % 25) + '.jpg' : photoURL,
+          photoURL: resultFind.userFind.photoURL,
         };
         const userId = currentUser.id;
         const newBalance = resultFind.userFind.balance;
@@ -294,7 +372,9 @@ export default class Homepage extends React.Component {
 
         const newHistory = await this.historyQuery(userId);
 
-        this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes });
+        const newOrders = await this.orderQuery(userId);
+
+        this.setState({ currentUser: currentUser, balance: newBalance, history: newHistory, wallet: newWallet, types: newtypes, orders: newOrders });
         return true;
       }
     }
@@ -304,44 +384,62 @@ export default class Homepage extends React.Component {
   getAssets() {
     const assets = [];
     this.state.wallet.map((item) => {
-        assets.push({ id: item.id, typeName: item.typeName, balance: item.balance, price: this.state.types.find(type => type.id == item.id).price });
+      /*assets.push({ id: item.id, symbol: item.symbol, balance: item.balance, price: this.state.types.find(type => type.id == item.id).price });*/
+      assets.push({ id: item.id, symbol: item.symbol, quantity: item.quantity, description: this.state.types.find(type => type.id == item.id).description });
       }
     );
     return assets;
   }
 
-  async buy() {
-    const modification = document.getElementById('outlined-adornment-amount').value;
-    if (modification > 0) {
-      if (this.state.balance >= modification) {
-        const userId = this.state.currentUser.id;
-        const typeId = document.getElementById('uncontrolled-native').value;
-        
-        const mutation = `mutation walletItemBuy($item: WalletItemInput!) {
-          walletItemBuy(item: $item)
-        }`;
-        const item = 
-        {
-          userId: userId, 
-          id: typeId,
-          modification: modification
-        };
-        const data = await graphQLFetch(mutation, { item });
-
-        if (data !== null) {
-          const newWallet = await this.walletQuery(userId);
-
-          const newHistory = await this.historyQuery(userId);
-
-          const newBalance = await this.balanceQuery(userId);
-
-          this.setState({ wallet: newWallet, balance : newBalance, history: newHistory }, () => { alert(data.walletItemBuy); });
+  getOrders() {
+    const orders = [];
+    this.state.orders.map((item) => {
+          orders.push({ id: item.id, state: item.currentState, symbol: item.symbol, quantity: item.quantity, price: item.price, amount: item.amount });
         }
-      } else {
-        alert(`Do not have enough money! Only have ${this.state.balance}`);
+    );
+    return orders.reverse();
+  }
+
+  async buy() {
+    const quantity = document.getElementById('quantity').value;
+    if (quantity > 0) {
+      const userId = this.state.currentUser.id;
+      const typeId = document.getElementById('type').value;
+      const buyOrderType = document.getElementById('buyOrderType').value;
+      let price = 0;
+      if (buyOrderType == 'Limit') {
+        price = document.getElementById('price').value;
+        if (price <= 0) {
+          alert("Please enter a possitive price!");
+          return false;
+        }
+      }
+
+      const mutation = `mutation walletItemBuy($item: WalletItemInput!) {
+        walletItemBuy(item: $item)
+      }`;
+      const item =
+      {
+        userId: userId,
+        id: typeId,
+        quantity: quantity,
+        price: price,
+      };
+      const data = await graphQLFetch(mutation, { item });
+
+      if (data !== null) {
+        const newWallet = await this.walletQuery(userId);
+
+        const newHistory = await this.historyQuery(userId);
+
+        const newBalance = await this.balanceQuery(userId);
+
+        const newOrders = await this.orderQuery(userId);
+
+        this.setState({ wallet: newWallet, balance : newBalance, history: newHistory, orders: newOrders }, () => { alert(data.walletItemBuy); });
       }
     } else {
-      alert("Please enter a non-negative modification!");
+      alert("Please enter a positive modification!");
     }
   }
 
@@ -349,14 +447,14 @@ export default class Homepage extends React.Component {
     if ( this.state.wallet.length === 0 ) {
       alert("Before sell, you should buy something");
     } else {
-      const typeId = document.getElementById('uncontrolled-native').value;
-      const typeName = this.state.types.find(type => type.id == typeId).typeName;
+      const typeId = document.getElementById('type').value;
+      const symbol = this.state.types.find(type => type.id == typeId).symbol;
       const item = this.state.wallet.find(item => item.id == typeId);
       if (item != undefined) {
-        const modification = document.getElementById('outlined-adornment-amount').value;
-        if (modification > 0) {
-          const typeBalance = item.balance;
-          if (typeBalance >= modification) {
+        const quantity = document.getElementById('quantity').value;
+        if (quantity > 0) {
+          const typeQuantity = item.quantity;
+          if (typeQuantity >= quantity) {
             const userId = this.state.currentUser.id;
             const mutation = `mutation walletItemSell($item: WalletItemInput!) {
               walletItemSell(item: $item)
@@ -365,7 +463,7 @@ export default class Homepage extends React.Component {
             {
               userId: userId,
               id: typeId,
-              modification: modification
+              quantity: quantity
             };
             const data = await graphQLFetch(mutation, { item });
     
@@ -376,16 +474,18 @@ export default class Homepage extends React.Component {
     
               const newBalance = await this.balanceQuery(userId);
 
-              this.setState({ wallet: newWallet, balance : newBalance, history: newHistory }, () => { alert(data.walletItemSell);; });
-            };
+              const newOrders = await this.orderQuery(userId);
+
+              this.setState({ wallet: newWallet, balance : newBalance, history: newHistory, orders: newOrders }, () => { alert(data.walletItemSell); });
+            }
           } else {
-            alert(`You do not have enough ${typeName}! You only have ${typeBalance}`);
+            alert(`You do not have enough ${symbol}! You only have ${typeQuantity}`);
           }
         } else {
-          alert("Please enter a non-negative modification!");
+          alert("Please enter a positive modification!");
         }
       } else {
-        alert(`You do not own ${typeName}!`);
+        alert(`You do not own ${symbol}!`);
       }
     }
   }
@@ -394,18 +494,18 @@ export default class Homepage extends React.Component {
     if ( this.state.wallet.length === 0 ) {
       alert("Before convert, you should buy something");
     } else {
-      const typeIdFrom = document.getElementById('uncontrolled-native-from').value;
-      const typeNameFrom = this.state.types.find(type => type.id == typeIdFrom).typeName;
-      const typeIdTo = document.getElementById('uncontrolled-native-to').value;
-      const typeNameTo = this.state.types.find(type => type.id == typeIdTo).typeName;
+      const typeIdFrom = document.getElementById('type-from').value;
+      const symbolFrom = this.state.types.find(type => type.id == typeIdFrom).symbol;
+      const typeIdTo = document.getElementById('type-to').value;
+      const symbolTo = this.state.types.find(type => type.id == typeIdTo).symbol;
       if (typeIdFrom == typeIdTo) {
         alert('From and To types should not be the same!');
       } else {
         const itemFrom = this.state.wallet.find(type => type.id == typeIdFrom);
         if (itemFrom !== undefined) {
-          const modification = document.getElementById('outlined-adornment-amount').value;
-          if (modification > 0) {
-            if (itemFrom.balance >= modification) {
+          const quantity = document.getElementById('quantity').value;
+          if (quantity > 0) {
+            if (itemFrom.quantity >= quantity) {
               const userId = this.state.currentUser.id;
               const mutation = `mutation walletItemConvert($item: WalletConvertItemInput!) {
                 walletItemConvert(item: $item)
@@ -415,7 +515,7 @@ export default class Homepage extends React.Component {
                 userId: userId,
                 idFrom: typeIdFrom,
                 idTo: typeIdTo,
-                modification: modification
+                quantity: quantity
               };
               const data = await graphQLFetch(mutation, { item });
       
@@ -426,16 +526,18 @@ export default class Homepage extends React.Component {
       
                 const newBalance = await this.balanceQuery(userId);
 
-                this.setState({ wallet: newWallet, balance : newBalance, history: newHistory }, () => { alert(data.walletItemConvert); console.log(this.state); });
-              };
+                const newOrders = await this.orderQuery(userId);
+
+                this.setState({ wallet: newWallet, balance : newBalance, history: newHistory, orders: newOrders }, () => { alert(data.walletItemConvert); });
+              }
             } else {
-              alert(`You do not have enough ${typeNameFrom}! You only have ${itemFrom.balance}`);
+              alert(`You do not have enough ${symbolFrom}! You only have ${itemFrom.quantity}`);
             }
           } else {
-            alert("Please enter a non-negative modification!");
+            alert("Please enter a positive modification!");
           }
         } else {
-          alert(`You do not own ${typeNameFrom}!`);
+          alert(`You do not own ${symbolFrom}!`);
         }
       }
     }
@@ -460,6 +562,18 @@ export default class Homepage extends React.Component {
       case 'Register':
         temp = <RegisterPage />
         break;
+      case 'Profile':
+        temp = <ProfilePage />
+        break;
+      case 'Setting':
+        temp = <SettingPage />
+        break;
+      case 'Order':
+        temp = <OrderPage />
+        break;
+      case 'Blog':
+        temp = <BlogPage />
+        break;
       default:
         temp = <AssetsPage />
     }
@@ -468,7 +582,7 @@ export default class Homepage extends React.Component {
 
   async checkLoginStatus() {
     const result = await this.currentUserQueryFunction();
-    result.currentId === -1? this.state.webHistory.replace('/login') : await (async () => {await this.loadData(result.currentId, result.email);})();
+    result.currentId === -1? this.state.webHistory.replace('/login') : await (async () => {await this.loadData(result.currentId, result.email, result.photoURL);})();
   }
 
   render() {

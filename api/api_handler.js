@@ -6,6 +6,7 @@ const GraphQLDate = require('./graphql_date.js');
 const about = require('./about.js');
 const user = require('./user.js');
 const history = require('./history.js');
+const order = require('./order.js');
 const types = require('./types.js');
 const wallet = require('./wallet.js');
 const db = require('./db.js');
@@ -18,6 +19,7 @@ const resolvers = {
     login: user.login,
     logout: user.logout,
     historyList: history.historyList,
+    orderList: order.orderList,
     typesList: types.typesList,
     typeFind: types.typeFind,
     walletDetail: wallet.walletDetail,
@@ -32,6 +34,8 @@ const resolvers = {
     walletItemSell: wallet.walletItemSell,
     walletItemConvert: wallet.walletItemConvert,
     topup: user.topup,
+    updateProfile: user.updateProfile,
+    updatePassword: user.updatePassword,
   },
   GraphQLDate,
 };

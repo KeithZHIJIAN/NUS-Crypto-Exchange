@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 
 function InputAdornmentsContent(props) {
   const [values, setValues] = React.useState({
-    amount: 0,
+      quantity: 0,
   });
 
   const handleChange = (prop) => (event) => {
@@ -18,13 +18,13 @@ function InputAdornmentsContent(props) {
         <div>
             <FormControl sx={{ m: 1, width: '25ch', p: 1, mx: 'auto', }} variant="outlined">
                 <OutlinedInput
-                    id="outlined-adornment-amount"
-                    value={values.amount}
-                    onChange={handleChange('amount')}
+                    id="quantity"
+                    value={values.quantity}
+                    onChange={handleChange('quantity')}
                     endAdornment={<InputAdornment position="end">{}</InputAdornment>}
-                    aria-describedby="outlined-amount-helper-text"
+                    aria-describedby="outlined-quantity-helper-text"
                     inputProps={{
-                    'aria-label': 'amount',
+                    'aria-label': 'quantity',
                     }}
                 />
             </FormControl>

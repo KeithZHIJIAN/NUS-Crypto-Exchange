@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "This is a front end project for nus crypto exchange",
   "scripts": {
-    "start": "cd api && npm run api && cd .. && cd ui && npm run ui",
+    "start": "service rabbitmq-server restart && cd api && npm run api && cd .. && cd ui && npm run ui",
     "dbInit": "cd api && npm run dbInit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+    "url": "git+https://github.com/HeWenbin-bobo/IT5007-Project-Public.git"
   },
   "author": "hewenbin243854232@outlook.com",
   "license": "ISC",
-  "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+  "homepage": "https://github.com/HeWenbin-bobo/IT5007-Project-Public.git"
 }
