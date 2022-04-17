@@ -10,16 +10,16 @@
 * rabbitmq web management: 15672
 
 ## Setup
-* ```git clone https://github.com/HeWenbin-bobo/IT5007-Project-Public.git```
+* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
 * (Automatically setup)
-    * ```cd IT5007-Project-Public```
+    * ```cd NUS-Crypto-Exchange-FrontEnd```
     * ```npm run start```
         * only need to enter ```Ctrl+A+D``` when creating screen
             * one for mongodb
             * one for api server
             * one for ui server
 * (Manully setup)
-    * ```cd IT5007-Project-Public```
+    * ```cd NUS-Crypto-Exchange-FrontEnd```
         * ```service rabbitmq-server restart```
     * (for api server)
         * ```cd api```
