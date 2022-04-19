@@ -29,12 +29,21 @@ def createOrder():
     print('rows inserted')
 
 #Update Functon 
-def updateOrder(new_qty, orderId):
+def updateQty(new_qty, orderId):
     query = "UPDATE orders SET quantity = %s WHERE orderId= %s"
     val = (new_qty, orderId)
     cur.execute(query, val)
     conn.commit()
     print(orderId, "updated")
+
+
+def updatePrice(new_price, orderId):
+    query = "UPDATE orders SET price = %s WHERE orderId= %s"
+    val = (new_price, orderId)
+    cur.execute(query, val)
+    conn.commit()
+    print(orderId, "updated")
+
 
 #Delete Function 
 def deleteOrder(orderId):
@@ -46,7 +55,7 @@ def deleteOrder(orderId):
 #Testing 
 # getAllOrders()
 # createOrder()
-# updateOrder(120, '0000000001' )
+# updateQty(120, '0000000001' )
 # deleteOrder('0000000001')
 
 cur.close()
