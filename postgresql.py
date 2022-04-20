@@ -19,14 +19,28 @@ cur = conn.cursor()
 def getAllOrders():
     orders = pd.read_sql_query(
         '''SELECT * FROM orders''', conn)
+    print(orders)
+    return orders 
+
+#get owner orders
+def getOwnerOrders(ownerId):
+    query= "SELECT * FROM orders WHERE ownerId= %s"
+    val = (ownerId,)
+    cur.execute(query, val)
+    conn.commit()
+    orders = pd.DataFrame(cur.fetchall())
+    print(orders)
     return orders 
 
 #Create Function 
-def createOrder():
-    query = "INSERT INTO orders values('0000000001', 'limit', true, 110, 3492.87, '0000000002', '1999-07-08 04:05:06 -8:00')"
-    cur.execute(query)
+def createOrder(orderId, orderType, buySide, quantity, price, ownerId, lastModified ):
+    query = "INSERT INTO orders values(%s,%s,%s,%s,%s,%s,%s)"
+    val = (orderId, orderType, buySide, quantity, price, ownerId, lastModified)
+    cur.execute(query,val)
     conn.commit()
     print('rows inserted')
+
+#add an order --> some other order will be matched --> update qty of the order matched 
 
 #Update Functon 
 def updateQty(new_qty, orderId):
@@ -36,7 +50,7 @@ def updateQty(new_qty, orderId):
     conn.commit()
     print(orderId, "updated")
 
-
+#Modify Prices
 def updatePrice(new_price, orderId):
     query = "UPDATE orders SET price = %s WHERE orderId= %s"
     val = (new_price, orderId)
@@ -54,7 +68,8 @@ def deleteOrder(orderId):
     print(orderId, "deleted")
 #Testing 
 # getAllOrders()
-# createOrder()
+# getOwnerOrders('0000000001') 
+#createOrder('0000000009', 'limit', True, 100, 3491.87, '0000000001', '1999-09-08 04:05:06 -8:00')
 # updateQty(120, '0000000001' )
 # deleteOrder('0000000001')
 
