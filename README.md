@@ -1,7 +1,7 @@
 # NUS-Crypto-Exchange-FrontEnd
 
 ## Git
-* https://github.com/HeWenbin-bobo/IT5007-Project-Public.git
+* https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git
 
 ## Port Usage
 * api server: 3000
@@ -10,8 +10,8 @@
 * rabbitmq web management: 15672
 
 ## Setup
-* ```git clone https://github.com/HeWenbin-bobo/IT5007-Project-Public.git```
-* ```cd IT5007-Project-Public```
+* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
+* ```cd NUS-Crypto-Exchange-FrontEnd```
 * (Automatically setup)
     * ```npm run start```
         * only need to enter ```Ctrl+A+D``` when creating screen
@@ -22,16 +22,11 @@
         * ```service rabbitmq-server restart```
     * (for api server)
         * ```cd api```
-        * ```npm install```
-        * ```screen mongod```
-            * enter ```Ctrl+A+D```
-        * ```mongo NUSSwap scripts/init.mongo.js```
-        * ```screen npm start```
+        * ```npm run api```
             * enter ```Ctrl+A+D```
     * (for ui server)
         * ```cd ui```
-        * ```npm install```
-        * ```screen npm start```
+        * ```npm run ui```
             * enter ```Ctrl+A+D```
         * If need to recompile, run following commands:
             * ```npm run fast```
