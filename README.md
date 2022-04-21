@@ -12,6 +12,7 @@
 ## Setup
 * ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
 * ```cd NUS-Crypto-Exchange-FrontEnd```
+* ```git checkout origin/main```
 * (Automatically setup)
     * ```npm run start```
         * only need to enter ```Ctrl+A+D``` when creating screen
