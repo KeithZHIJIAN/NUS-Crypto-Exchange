@@ -2,10 +2,11 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
-import Iconify from '../components/Iconify';
-import BlogPostCard from '../components/Blog/BlogPostCard';
-import BlogPostsSort from '../components/Blog/BlogPostsSort';
-import BlogPostsSearch from '../components/Blog/BlogPostsSearch';
+import loadable from '@loadable/component';
+const Iconify = loadable(() => import('../components/Iconify'));
+const BlogPostCard = loadable(() => import('../components/Blog/BlogPostCard'));
+const BlogPostsSort = loadable(() => import('../components/Blog/BlogPostsSort'));
+const BlogPostsSearch = loadable(() => import('../components/Blog/BlogPostsSearch'));
 // mock
 import POSTS from '../_mocks_/blog';
 

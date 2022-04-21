@@ -88,7 +88,7 @@ function LoginFormContent(props) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={handleShowPassword} edge="end">
+                  <IconButton onClick={handleShowPassword} edge="end" aria-label="show password">
                     <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                   </IconButton>
                 </InputAdornment>

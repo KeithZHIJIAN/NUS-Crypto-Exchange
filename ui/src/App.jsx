@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import HomePage from './pages/HomePage';
+import loadable from '@loadable/component';
+const HomePage = loadable(() => import('./pages/HomePage'));
 import {HashRouter as Router} from 'react-router-dom';
 
 

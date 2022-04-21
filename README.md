@@ -10,16 +10,15 @@
 * rabbitmq web management: 15672
 
 ## Setup
-* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
+* ```git clone https://github.com/HeWenbin-bobo/IT5007-Project-Public.git```
+* ```cd IT5007-Project-Public```
 * (Automatically setup)
-    * ```cd NUS-Crypto-Exchange-FrontEnd```
     * ```npm run start```
         * only need to enter ```Ctrl+A+D``` when creating screen
             * one for mongodb
             * one for api server
             * one for ui server
 * (Manully setup)
-    * ```cd NUS-Crypto-Exchange-FrontEnd```
         * ```service rabbitmq-server restart```
     * (for api server)
         * ```cd api```
@@ -52,7 +51,7 @@
 * View information of all Cryptocurrency (```Trade``` tag)
 * Template for blog (```Blog``` tag)
 * Update profile (```Profile``` tag)
-* Update password (```Setting``` tag)
+* Update password for Non-Google logged in users (```Setting``` tag)
 
 ## Database structure(MongoDB)
 * database name: NUSSwap

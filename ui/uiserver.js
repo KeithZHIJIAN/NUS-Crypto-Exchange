@@ -1,8 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const compression = require('compression');
 const proxy = require('http-proxy-middleware');
 
 const app = express();
+
+app.use(compression());
 
 app.use(express.static('public'));
 
@@ -11,8 +14,10 @@ if (apiProxyTarget) {
   app.use('/graphql', proxy({ target: apiProxyTarget }));
 }
 
+// const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT
+//   || 'http://35.160.80.61:3000/graphql';
 const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT
-  || 'http://localhost:3000/graphql';
+    || 'http://localhost:3000/graphql';
 const env = { UI_API_ENDPOINT };
 
 app.get('/env.js', (req, res) => {

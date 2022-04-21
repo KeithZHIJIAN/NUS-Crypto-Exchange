@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { Card, Box, Link, Container, Typography } from '@mui/material';
 // layouts
-import AuthLayout from '../components/AuthLayout';
+import loadable from '@loadable/component';
+const AuthLayout = loadable(() => import('../components/AuthLayout'));
 // components
-import Page from '../components/Page';
-import LoginForm from '../components/Login/LoginForm';
-import AuthSocial from '../components/AuthSocial';
+const Page = loadable(() => import('../components/Page'));
+const LoginForm = loadable(() => import('../components/Login/LoginForm'));
+const AuthSocial = loadable(() => import('../components/AuthSocial'));
 
 // ----------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ function Login(props) {
               }}
             >
               Don't have an account?&nbsp;
-              <Link variant="subtitle2" underline="hover">
+              <Link variant="subtitle2" underline="hover" href="/#/register">
                 Get started
               </Link>
             </Typography>

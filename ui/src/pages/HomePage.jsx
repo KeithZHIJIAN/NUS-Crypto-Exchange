@@ -1,18 +1,20 @@
 import * as React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AssetsPage from './AssetsPage';
-import TradePage from './TradePage';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
-import OrderPage from './OrderPage';
-import SettingPage from "./SettingPage";
-import ProfilePage from './ProfilePage';
-import BlogPage from './BlogPage';
-import HomePageContent from '../pageContent/HomePageContent';
 import account from '../_mocks_/account';
 import graphQLFetch from '../graphQLFetch';
 import { createHashHistory } from 'history';
+
+import loadable from '@loadable/component';
+const AssetsPage = loadable(() => import('./AssetsPage'));
+const TradePage = loadable(() => import('./TradePage'));
+const LoginPage = loadable(() => import('./LoginPage'));
+const RegisterPage = loadable(() => import('./RegisterPage'));
+const OrderPage = loadable(() => import('./OrderPage'));
+const SettingPage = loadable(() => import('./SettingPage'));
+const ProfilePage = loadable(() => import('./ProfilePage'));
+const BlogPage = loadable(() => import('./BlogPage'));
+const HomePageContent = loadable(() => import('../pageContent/HomePageContent'));
 
 
 //保留n位小数

@@ -104,7 +104,7 @@ function RegisterFormContent(props) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
+                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)} aria-label="show password">
                     <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                   </IconButton>
                 </InputAdornment>

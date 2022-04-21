@@ -1,12 +1,14 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Copyright from '../components/Copyright';
-import CryptoCurrencyChart from '../components/CryptoCurrencyChart';
-import BuyAndSellLabTabs from '../components/BuyAndSell/BuyAndSellLabTabs';
+
+import loadable from '@loadable/component';
+const Copyright = loadable(() => import('../components/Copyright'));
+const CryptoCurrencyChart = loadable(() => import('../components/CryptoCurrencyChart'));
+const BuyAndSellLabTabs = loadable(() => import('../components/BuyAndSell/BuyAndSellLabTabs'));
+const Box = loadable(() => import('@mui/material/Box'));
+const Toolbar = loadable(() => import('@mui/material/Toolbar'));
+const Container = loadable(() => import('@mui/material/Container'));
+const Grid = loadable(() => import('@mui/material/Grid'));
+const Paper = loadable(() => import('@mui/material/Paper'));
 
 const style = {
     position: 'relative',

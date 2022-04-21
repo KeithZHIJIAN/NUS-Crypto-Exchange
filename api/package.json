@@ -12,11 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+    "url": "git+https://github.com/HeWenbin-bobo/IT5007-Project-Public.git"
   },
   "author": "vasan.promern@gmail.com",
   "license": "ISC",
-  "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git",
+  "homepage": "https://github.com/HeWenbin-bobo/IT5007-Project-Public.git",
   "dependencies": {
     "amqplib": "^0.8.0",
     "apollo-server-express": "^2.3.1",
