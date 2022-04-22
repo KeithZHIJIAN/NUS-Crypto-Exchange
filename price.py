@@ -67,7 +67,7 @@ class Price:
         return self._price == MARKET_ORDER_PRICE
 
     def __str__(self):
-        return f"{'Buy' if self.isBuy() else 'Sell'}\tat\t{'Market' if self.isMarket() else self.price()}"
+        return f"{'Buy' if self.isBuy() else 'Sell'} at {'Market Price' if self.isMarket() else self.price()}"
 
     def __repr__(self):
         return self.__str__()

@@ -1,5 +1,4 @@
 from orderbook import OrderBook
-from collections import defaultdict
 from decimal import Decimal
 from order import Order
 from datetime import datetime
@@ -32,7 +31,8 @@ class MatchingEngine(object):
             raise Exception("This is a singleton.")
 
         self._nextOrderIndex = 1
-        self.order_books = dict()
+        self._order_books = dict()
+        self._orders = dict()
         MatchingEngine.__instance = self
 
     def generate_order_id(self):
@@ -53,6 +53,7 @@ class MatchingEngine(object):
         buy: bool,
         quantity: int,
         price: Decimal,
+        stopPrice: Decimal,
         ownerId: str,
     ):
         """
@@ -66,16 +67,15 @@ class MatchingEngine(object):
         Returns:
             Order: Order object.
         """
-
         return Order(
             self.generate_order_id(),
             orderType,
             buy,
             quantity,
             price,
+            stopPrice,
             ownerId,
-            # Getting the current date and time
-            str(datetime.now()),
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         )
 
     def apply(self, msg):
@@ -88,30 +88,13 @@ class MatchingEngine(object):
         """
         print(" [x] Received %r" % msg)
         msg_list = msg.decode("UTF-8").upper().split()
-        if msg_list[3] == "BID":
-            buy = True
-        elif msg_list[3] == "ASK":
-            buy = False
-        else:
-            print("Error: Invalid side.")
-            return
         if msg_list[0] == "ADD":
-            order = self.assemble_order(
-                orderType=msg_list[2],
-                buy=buy,
-                quantity=int(msg_list[4]),
-                price=Decimal(msg_list[5]),
-                ownerId=msg_list[6],
-            )
-            if msg_list[1] not in self.order_books:
-                self.order_books[msg_list[1]] = OrderBook(msg_list[1])
-            orderbook = self.order_books[msg_list[1]]
-            orderbook.add_order(order)
-            print(orderbook)
-        # if msg_list[0] == "cancel":
-        #     orderbook = self.order_books[msg_list[1]]
-        #     orderbook.cancel_order(msg_list[2], int(msg_list[3]))
-        #     print(orderbook)
+            self.doAdd(msg_list)
+        if msg_list[0] == "CANCEL":
+            self.doCancel(msg_list)
+        if msg_list[0] == "MODIFY":
+            self.doModify(msg_list)
+
         # if msg_list[0] == "modify":
         #     order = {
         #         "type": msg_list[3],
@@ -120,6 +103,106 @@ class MatchingEngine(object):
         #         "price": Decimal(msg_list[6]),
         #         "trade_id": int(msg_list[7]),
         #     }
-        #     orderbook = self.order_books[msg_list[1]]
+        #     orderbook = self._order_books[msg_list[1]]
         #     orderbook.modify_order(int(msg_list[2]), order)
         #     print(orderbook)
+
+    def doAdd(self, msg_list):
+        """
+        Parse a message into a dictionary of order, and apply it to the order book.
+        Args:
+            msg (str): Message to parse.
+        Returns:
+            None
+        """
+        symbol = msg_list[1]
+
+        if symbol not in self._order_books:
+            self._order_books[symbol] = OrderBook(symbol)
+        orderbook = self._order_books[symbol]
+
+        orderType = msg_list[2]
+
+        if msg_list[3] == "BID":
+            buy = True
+        elif msg_list[3] == "ASK":
+            buy = False
+        else:
+            print("--Invalid side.")
+            # Send error msg back to front end
+            return False
+
+        quantity = int(msg_list[4])
+        if quantity == 0 or quantity > 1000000000:
+            print("--Invalid quantity")
+            return False
+
+        price = Decimal(0) if orderType == "MARKET" else Decimal(msg_list[5])
+        if price > 1000000000:
+            print("--Invalid price")
+            return False
+
+        ownerId = msg_list[6]
+
+        stopPrice = Decimal(msg_list[7]) if len(msg_list) > 7 else Decimal(0)
+
+        order = self.assemble_order(orderType, buy, quantity, price, stopPrice, ownerId)
+
+        self._orders[order.orderId()] = order
+        orderbook.add(order)
+
+        print(orderbook)
+
+    def doCancel(self, msg_list):
+
+        symbol = msg_list[1]
+
+        if symbol not in self._order_books:
+            print("--Invalid symbol")
+            return
+
+        orderbook = self._order_books[symbol]
+
+        orderId = msg_list[2]
+        if orderId in self._orders:
+            order = self._orders.pop(orderId)
+            orderbook.cancel(order)
+            print(orderbook)
+
+    def doModify(self, msg_list):
+        """
+        -   Modify, Symbol, Order ID, Quantity, Price
+            modify ETHUSD 0000000002 0 64000 //change price to 64000 only
+            modify ethusd 0000000002 100 0 //change quantity to 100 only
+            modify ethusd 0000000002 100 64000 //change quantity to 100 and price to 64000
+        """
+
+        symbol = msg_list[1]
+
+        if symbol not in self._order_books:
+            print("--Invalid symbol")
+            return
+        orderbook = self._order_books[symbol]
+
+        orderId = msg_list[2]
+        if orderId in self._orders:
+            order = self._orders[orderId]
+        else:
+            print("--Invalid order id")
+            return
+
+        quantity = int(msg_list[3])
+
+        if quantity > 1000000000:
+            print("--Invalid quantity")
+            return False
+
+        price = Decimal(msg_list[4])
+        if price > 1000000000:
+            print("--Invalid price")
+            return
+        orderbook.replace(
+            order, quantity, price, datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+
+        print(orderbook)

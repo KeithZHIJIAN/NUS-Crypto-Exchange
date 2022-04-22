@@ -13,14 +13,9 @@ class MultiMap:
     def __init__(self) -> None:
         self.d = SortedDict()
 
-    def add(
-        self, price: Price, orderTracker: OrderTracker, recover: bool = False
-    ) -> None:
+    def add(self, price: Price, orderTracker: OrderTracker) -> None:
         if price in self.d:
-            if recover:
-                self.d[price].appendleft(orderTracker)
-            else:
-                self.d[price].append(orderTracker)
+            self.d[price].append(orderTracker)
         else:
             self.d[price] = deque([orderTracker])
 
