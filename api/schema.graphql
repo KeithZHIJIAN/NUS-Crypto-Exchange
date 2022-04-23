@@ -1,0 +1,128 @@
+scalar GraphQLDate
+
+type Item {
+  _id: ID!
+  id: Int!
+  symbol: String!
+  quantity: Float!
+}
+
+type User {
+  _id: ID!
+  id: Int!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  balance: Float!
+  photoURL: String!
+}
+
+type History {
+  _id: ID!
+  id: Int!
+  time: String!
+  balance: Float!
+}
+
+type Order {
+  _id: ID!
+  id: String!
+  symbol: String!
+  side: String!
+  quantity: Int!
+  openQuantity: Int!
+  price: String!
+  filledCost: String!
+  userId: String!
+}
+
+type Type {
+  _id: ID!
+  id: Int!
+  symbol: String!
+  description: String!
+  price: Float!
+}
+
+type Balance {
+  balance: Float!
+}
+
+type CurrentUser {
+  currentId: Int!
+  email: String!
+  photoURL: String!
+}
+
+input HistoryInputs {
+  userId: Int!
+  balance: Float!
+}
+
+input UserInputs {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  photoURL: String!
+}
+
+input WalletItemInput {
+  userId: Int!
+  id: Int!
+  quantity: Float!
+  price: Float
+}
+
+input WalletConvertItemInput {
+  userId: Int!
+  idFrom: Int!
+  idTo: Int!
+  quantity: Float!
+}
+
+input TopupInput {
+  userId: Int!
+  amount: Float!
+}
+
+input ProfileInput {
+  userId: Int!
+  firstName: String!
+  lastName: String!
+}
+
+input PasswordInput {
+  userId: Int!
+  password: String!
+}
+
+##### Top level declarations
+
+type Query {
+  about: String!
+  users: [User]!
+  userFind(email: String!): User!
+  login(user: UserInputs!): String!
+  logout: String!
+  historyList(userId: Int!): [History]!
+  orderList(userId: Int!): [Order]!
+  typesList: [Type!]!
+  typeFind(id: Int!): Type!
+  walletDetail(userId: Int!): [Item]!
+  balanceDetail(userId: Int!): Float!
+  currentUserQuery: CurrentUser!
+}
+
+type Mutation {
+  setAboutMessage(message: String!): String!
+  register(user: UserInputs!): String!
+  addHistory(history: HistoryInputs!): History!
+  walletItemBuy(item: WalletItemInput!): String!
+  walletItemSell(item: WalletItemInput!): String!
+  walletItemConvert(item: WalletConvertItemInput!): String!
+  topup(topupInput: TopupInput!): Float!
+  updateProfile(profileInput: ProfileInput!): String!
+  updatePassword(passwordInput: PasswordInput!): String!
+}
