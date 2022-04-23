@@ -39,7 +39,7 @@
 
 * (Matching engine setup)
    * ```cd MatchingEngine```
-      * ```python3 main.py
+      * ```python3 main.py```
 
 ## Web Browser
 * Enter ```localhost:8000``` on web browser
