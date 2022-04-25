@@ -20,7 +20,7 @@ class OrderBook:
         self._stopBids = MultiMap()
         self._pendingTrackers = []
         self._marketPrice = Decimal(0)
-        self._db = connectDatabase()
+        # self._db = connectDatabase()
 
     def marketPrice(self) -> Decimal:
         return self._marketPrice
@@ -28,7 +28,7 @@ class OrderBook:
     def set_market_price(self, price: Decimal) -> None:
         oldMarketPrice = self._marketPrice
         self._marketPrice = price
-        db_update_market_price(self._db['types'], self._symbol, price)
+        # db_update_market_price(self._db['types'], self._symbol, price)
         if price > oldMarketPrice or oldMarketPrice == 0:
             self.check_stop_orders(True, price, self._stopBids)
         elif price < oldMarketPrice or oldMarketPrice == 0:
@@ -167,29 +167,29 @@ class OrderBook:
         if fill_qty > 0:
 
             # check buyer balance
-            balance = db_get_user_balance(
-                self._db, inbound_tracker.order().ownerId() if inbound_tracker.order().isBuy() else current_tracker.order().ownerId())
-            if balance == -1:
-                return
-            if balance < cross_price * fill_qty:
-                fill_qty = balance // cross_price
-                if fill_qty == 0:
-                    return
-            # check seller asset
-            quantity = db_get_user_asset(self._db, inbound_tracker.order().ownerId(
-            ) if current_tracker.order().isBuy() else current_tracker.order().ownerId(), inbound_tracker.order().symbol())
-            if fill_qty == -1:
-                return
-            fill_qty = min(fill_qty, quantity)
+            # balance = db_get_user_balance(
+            #     self._db, inbound_tracker.order().ownerId() if inbound_tracker.order().isBuy() else current_tracker.order().ownerId())
+            # if balance == -1:
+            #     return
+            # if balance < cross_price * fill_qty:
+            #     fill_qty = balance // cross_price
+            #     if fill_qty == 0:
+            #         return
+            # # check seller asset
+            # quantity = db_get_user_asset(self._db, inbound_tracker.order().ownerId(
+            # ) if current_tracker.order().isBuy() else current_tracker.order().ownerId(), inbound_tracker.order().symbol())
+            # if fill_qty == -1:
+            #     return
+            # fill_qty = min(fill_qty, quantity)
 
             inbound_tracker.fill(cross_price, fill_qty)
             current_tracker.fill(cross_price, fill_qty)
 
-            db_fill_order(
-                self._db, inbound_tracker.orderId(), fill_qty, cross_price, inbound_tracker.order().ownerId(), inbound_tracker.order().symbol())
-            db_fill_order(
-                self._db, current_tracker.orderId(), fill_qty, cross_price, inbound_tracker.order().ownerId(), inbound_tracker.order().symbol())
-            self.set_market_price(cross_price)
+            # db_fill_order(
+            #     self._db, inbound_tracker.orderId(), fill_qty, cross_price, inbound_tracker.order().ownerId(), inbound_tracker.order().symbol())
+            # db_fill_order(
+            #     self._db, current_tracker.orderId(), fill_qty, cross_price, inbound_tracker.order().ownerId(), inbound_tracker.order().symbol())
+            # self.set_market_price(cross_price)
 
         # Add the trade to the trade history
         return cross_price, fill_qty
@@ -200,8 +200,8 @@ class OrderBook:
     def add(self, order: Order) -> bool:
         matched = False
         inbound = OrderTracker(order)
-        db_create_order(self._db["orders"], order.orderId(), order.symbol(),
-                        "buy" if order.isBuy() else "sell", order.quantity(), order.price(), order.ownerId())
+        # db_create_order(self._db["orders"], order.orderId(), order.symbol(),
+        #                 "buy" if order.isBuy() else "sell", order.quantity(), order.price(), order.ownerId())
         if not (inbound.order().stopPrice() != 0 and self.add_stop_order(inbound)):
             matched = self.submit_order(inbound)
         while self._pendingTrackers:
