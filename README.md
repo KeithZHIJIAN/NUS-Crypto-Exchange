@@ -19,6 +19,7 @@
             * one for mongodb
             * one for api server
             * one for ui server
+            * one for matching engine
 * (Manully setup)
     * ```service rabbitmq-server restart```
     * (for api server)
