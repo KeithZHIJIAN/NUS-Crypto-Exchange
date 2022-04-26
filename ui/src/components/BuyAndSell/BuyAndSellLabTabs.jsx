@@ -10,6 +10,7 @@ import BuyOrderTypeAndPrice from './Buy/BuyOrderTypeAndPrice';
 import BuyType from './Buy/BuyType';
 import BuyButton from './Buy/BuyButton';
 import SellTextField from './Sell/SellTextField';
+import SellOrderTypeAndPrice from './Sell/SellOrderTypeAndPrice';
 import SellType from './Sell/SellType';
 import SellButton from './Sell/SellButton';
 import ConvertTextField from './Convert/ConvertTextField';
@@ -40,9 +41,9 @@ function LabTabsContent(props) {
             alignItems="center"
             spacing={1}
           >
-            <Grid item xs><BuyTextField /></Grid>
             <Grid item xs><BuyOrderTypeAndPrice /></Grid>
             <Grid item xs><BuyType /></Grid>
+            <Grid item xs><BuyTextField /></Grid>
             <Grid item xs><BuyButton /></Grid>
           </Grid>
         </TabPanel>
@@ -53,8 +54,9 @@ function LabTabsContent(props) {
             alignItems="center"
             spacing={1}
           >
-            <Grid item xs><SellTextField /></Grid>
+            <Grid item xs><SellOrderTypeAndPrice /></Grid>
             <Grid item xs><SellType /></Grid>
+            <Grid item xs><SellTextField /></Grid>
             <Grid item xs><SellButton /></Grid>
           </Grid>
         </TabPanel>

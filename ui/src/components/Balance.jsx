@@ -2,6 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import PropTypes from 'prop-types';
+import account from "../_mocks_/account";
 
 let myDate = new Date();//获取系统当前时间
 
@@ -35,7 +36,7 @@ function BalanceContent(props) {
 
 export default class Balance extends React.Component {
   static contextTypes = {
-    balance: PropTypes.number
+    balance: PropTypes.number,
   };
 
   render() {

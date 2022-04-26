@@ -15,13 +15,13 @@ function NativeSelectContent(props) {
             </InputLabel>
             <FormControl fullWidth>
                 <NativeSelect
-                defaultValue={0}
-                inputProps={{
-                    name: 'type',
-                    id: 'type',
-                }}
+                    defaultValue={0}
+                    inputProps={{
+                        name: 'type',
+                        id: 'type',
+                    }}
                 >
-                {GenerateTypes(props.types)}
+                    {GenerateTypes(props.types)}
                 </NativeSelect>
             </FormControl>
         </Box>

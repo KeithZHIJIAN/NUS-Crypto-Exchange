@@ -1,19 +1,19 @@
-const { getDb, getNextOrderId } = require('./db.js');
+const { getDb } = require('./db.js');
 
 
-async function orderInit( userId ) {
+async function orderInit(userId) {
     const db = getDb();
     const orderCounter = await db.collection('orderCounters')
-    orderCounter.remove({ _id: 'order'+String(userId) });
-    orderCounter.insert({ _id: 'order'+String(userId), current: 0 });
+    orderCounter.remove({ _id: 'order' + String(userId) });
+    orderCounter.insert({ _id: 'order' + String(userId), current: 0 });
 
     return "Successfully Init";
 }
 
 
-async function orderList(_, { userId } ) {
+async function orderList(_, { userId }) {
     const db = getDb();
-    const orders = await db.collection('orders').find({userId: userId}).toArray();
+    const orders = await db.collection('orders').find({ userId: userId }).toArray();
     return orders;
 }
 
@@ -29,18 +29,18 @@ async function orderFind(_, { order }) {
 }
 
 
-async function addOrder( order ) {
-    const userId = order.userId;
-    const db = getDb();
+// async function addOrder( order ) {
+//     const userId = order.userId;
+//     const db = getDb();
 
-    const newOrder = Object.assign({}, order);
-    newOrder.id = await getNextOrderId('order'+String(userId))-1;
-    const result = await db.collection('orders').insertOne(newOrder);
-    const returnOrder = await db.collection('orders').findOne({ _id: result.insertedId });
-    if (returnOrder) {
-        return returnOrder;
-    }
-}
+//     const newOrder = Object.assign({}, order);
+//     newOrder.id = await getNextOrderId('order'+String(userId))-1;
+//     const result = await db.collection('orders').insertOne(newOrder);
+//     const returnOrder = await db.collection('orders').findOne({ _id: result.insertedId });
+//     if (returnOrder) {
+//         return returnOrder;
+//     }
+// }
 
 
-module.exports = { orderInit, orderList, orderFind, addOrder };
+module.exports = { orderInit, orderList, orderFind/*, addOrder*/ };

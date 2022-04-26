@@ -20,7 +20,7 @@
             * one for api server
             * one for ui server
 * (Manully setup)
-        * ```service rabbitmq-server restart```
+    * ```service rabbitmq-server restart```
     * (for api server)
         * ```cd api```
         * ```npm run api```
@@ -31,6 +31,9 @@
             * enter ```Ctrl+A+D```
         * If need to recompile, run following commands:
             * ```npm run fast```
+    * (for MatchingEngine)
+        * ```cd MatchingEngine```
+            * ```screen python3 main.py```
 
 ## Web Browser
 * Enter ```localhost:8000``` on web browser
@@ -54,12 +57,12 @@
 * collections:
     * types: Record predefined types that can be traded
         * id: *[Int]* Unique
-        * typeName: *[String]* Unique
+        * symbol: *[String]* Unique
         * price: *[Float]*
     * wallet: Record what the user have bought
         * id: *[Int]*
         * userId: *[Int]*
-        * typeName: *[String]*
+        * symbol: *[String]*
         * balance: *[Float]*
     * history: Record the change process of balance
         * id: *[Int]*
@@ -74,7 +77,7 @@
         * email: *[String]* Unique
         * firstName: *[String]*
         * lastName: *[String]*
-        * balance: *[Float]*
+        * balance: *[String]*
     * userCounter: Record the number of users
         * _id: *[String]*
         * current: *[Int]*
@@ -109,7 +112,7 @@
         * current: *[Int]*
 
 ## Message structure(RabbitMQ)
-* ***state,symbol,orderType,side,quantity,price,note***
+* ******
   
 ## RabbitMQ installation
 * ```docker run -it --name rabbitmq -d -p 5672:5672 -p 15672:15672 -p 3000:3000 -p 5000:5000 -p 8000:8000 -dit ubuntu:lates```
@@ -121,3 +124,11 @@
 * ```service rabbitmq-server start```
 * ```rabbitmq-plugins enable rabbitmq_management```
 * ```service rabbitmq-server restart```
+
+## Python3 installation
+* ```apt-get update```
+* ```apt-get install python3```
+* ```apt install python3-pip```
+* ```pip install pymongo```
+* ```pip install sortedcontainers```
+* ```pip install pika```

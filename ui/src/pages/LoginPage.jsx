@@ -63,7 +63,7 @@ function Login(props) {
                 </Link>
               </AuthLayout>
               <Typography variant="h4" gutterBottom>
-                Sign in to NUSSwap
+                Sign in to NUSwap
               </Typography>
               <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
             </Box>

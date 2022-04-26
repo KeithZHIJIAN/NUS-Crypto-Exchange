@@ -15,7 +15,8 @@ export default class ConvertButton extends React.Component {
     render() {
         return (
             <Stack direction="row" spacing={2}>
-                <Button variant="contained" onClick={async ()=>{await this.context.convert();}}>Convert</Button>
+                {/*<Button variant="contained" onClick={async ()=>{await this.context.convert();}}>Convert</Button>*/}
+                <Button variant="contained" disabled>Convert</Button>
             </Stack>
         );
     }

@@ -34,23 +34,4 @@ async function historyFind(_, { history }) {
     return historyMatch;
 }
 
-async function addHistory(_, { history } ) {
-    const userId = history.userId;
-    const db = getDb();
-
-    const newHistory = Object.assign({}, history);
-    newHistory.id = await getNextHistoryId('history'+String(userId))-1;
-    let myDate = new Date();//获取系统当前时间
-    if (myDate.getMinutes()<10) {
-        newHistory.time = `${myDate.getHours()}:0${myDate.getMinutes()}`;
-    } else {
-        newHistory.time = `${myDate.getHours()}:${myDate.getMinutes()}`;
-    }
-    const result = await db.collection('history').insertOne(newHistory);
-    const returnHistory = await db.collection('history').findOne({ _id: result.insertedId });
-    if (returnHistory) {
-        return returnHistory;
-    }
-}
-
-module.exports = { historyInit, historyList, historyFind, addHistory };
+module.exports = { historyInit, historyList, historyFind, /*addHistory*/ };

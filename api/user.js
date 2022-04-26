@@ -1,6 +1,6 @@
 /* const { UserInputError } = require('apollo-server-express'); */
-const { getDb, getNextUserId } = require('./db.js');
-const { historyInit, addHistory } = require('./history.js');
+const { getDb, getNextUserId, addHistory } = require('./db.js');
+const { historyInit } = require('./history.js');
 const { orderInit } = require('./order.js');
 const { rabbitmqInit } = require('./rabbitmq.js');
 
@@ -19,6 +19,33 @@ async function userFind(_, { email }) {
     return userMatch;
 }
 
+async function walletItemFind(userId, id) {
+    const db = getDb();
+
+    const walletItemMatch = await db.collection('wallet')
+        .findOne({ userId: userId, id: id });
+    return walletItemMatch;
+}
+
+async function walletUpdate(item) {
+    const db = getDb();
+    const itemMatch = await walletItemFind(item.userId, item.id);
+    if (itemMatch == null) {
+        await db.collection('wallet').insertOne(item);
+        return item.quantity;
+    } else {
+        const wallet = await db.collection('wallet').findOneAndUpdate(
+            { id: item.id, userId: item.userId },
+            { $inc: { quantity: item.quantity } },
+            { returnOriginal: false },
+        );
+        if (wallet.value.quantity == 0) {
+            await db.collection('wallet').deleteOne({ id: item.id, userId: item.userId });
+        }
+        return wallet.value.quantity;
+    }
+}
+
 async function register(_, { user }) {
     const db = getDb();
 
@@ -26,15 +53,19 @@ async function register(_, { user }) {
         .findOne({ email: user.email });
     if (!userMatch) {
         const newuser = Object.assign({}, user);
-        newuser.id = await getNextUserId('users')-1;
+        newuser.id = await getNextUserId('users') - 1;
         newuser.balance = 100;
-        newuser.photoURL = newuser.photoURL == ''? '/static/mock-images/avatars/avatar_' + String(newuser.id % 25) + '.jpg' : newuser.photoURL
+        newuser.photoURL = newuser.photoURL == '' ? '/static/mock-images/avatars/avatar_' + String(newuser.id % 25) + '.jpg' : newuser.photoURL
         await historyInit(newuser.id, newuser.balance);
         await rabbitmqInit(newuser.id);
         await orderInit(newuser.id);
         const result = await db.collection('users').insertOne(newuser);
         if (await db.collection('users').findOne({ _id: result.insertedId })) {
-            await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' },{ $set: {currentId: newuser.id, email: newuser.email, photoURL: newuser.photoURL }});
+            await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' }, { $set: { currentId: newuser.id, email: newuser.email, photoURL: newuser.photoURL } });
+            /* --------------- Add 100 ETH to new account --------------- */
+            const newItem = { id: 0, symbol: 'ETH', quantity: 100, userId: newuser.id };
+            await walletUpdate(newItem);
+            /* ---------------------------------------------------------- */
             return 'Successfully register!';
         } else {
             return 'Something wrong when register!';
@@ -51,7 +82,7 @@ async function login(_, { user }) {
         .findOne({ email: user.email });
     if (userMatch) {
         if (userMatch.password === user.password) {
-            await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' },{ $set: {currentId: userMatch.id, email: userMatch.email, photoURL: userMatch.photoURL }});
+            await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' }, { $set: { currentId: userMatch.id, email: userMatch.email, photoURL: userMatch.photoURL } });
             return 'Successfully login!';
         } else {
             return 'Password does not match the email, please check!';
@@ -64,7 +95,7 @@ async function login(_, { user }) {
 async function logout() {
     const db = getDb();
 
-    await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' },{ $set: {currentId: -1, email: '', photoURL: ''} });
+    await db.collection('currentUser').findOneAndUpdate({ _id: 'currentUser' }, { $set: { currentId: -1, email: '', photoURL: '' } });
     return 'Successfully logout!';
 }
 
@@ -72,7 +103,7 @@ async function currentUserQuery() {
     const db = getDb();
 
     const currentUser = await db.collection('currentUser').findOne({ _id: 'currentUser' });
-    const result = {currentId: currentUser.currentId, email: currentUser.email, photoURL: currentUser.photoURL};
+    const result = { currentId: currentUser.currentId, email: currentUser.email, photoURL: currentUser.photoURL };
     return result;
 }
 
@@ -80,18 +111,23 @@ async function topup(_, { topupInput }) {
     const db = getDb();
 
     const userId = topupInput.userId;
-    const amount = topupInput.amount;
+
+    const user = await db.collection('users').findOne({ id: userId });
+
+    const oldBalance = Number(user.balance)
+    const amount = Number(topupInput.amount);
+    const newBalance = (oldBalance + amount).toString();
 
     const result = await db.collection('users').findOneAndUpdate(
         { id: userId },
-        { $inc: { balance: amount } },
+        { $set: { balance: newBalance } },
         { returnOriginal: false },
     );
-    const newBalance = result.value.balance;
+
 
     const history = { userId: userId, balance: newBalance };
     await addHistory("server", { history });
-    
+
     return newBalance;
 }
 
@@ -104,7 +140,7 @@ async function updateProfile(_, { profileInput }) {
 
     await db.collection('users').findOneAndUpdate(
         { id: userId },
-        { $set: {firstName: firstName, lastName: lastName} }
+        { $set: { firstName: firstName, lastName: lastName } }
     );
 
     return 'Successfully update profile!';
@@ -123,7 +159,7 @@ async function updatePassword(_, { passwordInput }) {
 
     await db.collection('users').findOneAndUpdate(
         { id: userId },
-        { $set: {password: password} }
+        { $set: { password: password } }
     );
 
     return 'Successfully update password!';

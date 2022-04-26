@@ -22,7 +22,7 @@ function InputAdornmentsContent(props) {
                     id="quantity"
                     value={values.quantity}
                     onChange={handleChange('quantity')}
-                    endAdornment={<InputAdornment position="end">{/* {props.types.filter(type => type.id == document.getElementById('uncontrolled-native').value).map(type => type.name)[0]} */}</InputAdornment>}
+                    endAdornment={<InputAdornment position="end">Quantity</InputAdornment>}
                     aria-describedby="outlined-quantity-helper-text"
                     inputProps={{
                     'aria-label': 'quantity',

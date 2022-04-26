@@ -48,7 +48,7 @@ function Register(props) {
       <RootStyle>
         <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Typography variant="h3" sx={{ px: 5, mt: 0, mb: 5 }}>
-            Have fun in NUSSwap
+            Have fun in NUSwap
           </Typography>
           <img alt="register" src="/img/background.jpg" />
         </SectionStyle>

@@ -27,12 +27,14 @@ type History {
 
 type Order {
   _id: ID!
-  id: Int!
-  currentState: String!
+  id: String!
   symbol: String!
-  quantity: Float!
-  price: Float!
-  amount: Float!
+  side: String!
+  quantity: Int!
+  openQuantity: Int!
+  price: String!
+  filledCost: String!
+  userId: String!
 }
 
 type Type {
@@ -109,7 +111,7 @@ type Query {
   typesList: [Type!]!
   typeFind(id: Int!): Type!
   walletDetail(userId: Int!): [Item]!
-  balanceDetail(userId: Int!): Float!
+  balanceDetail(userId: Int!): String!
   currentUserQuery: CurrentUser!
 }
 
@@ -120,7 +122,7 @@ type Mutation {
   walletItemBuy(item: WalletItemInput!): String!
   walletItemSell(item: WalletItemInput!): String!
   walletItemConvert(item: WalletConvertItemInput!): String!
-  topup(topupInput: TopupInput!): Float!
+  topup(topupInput: TopupInput!): String!
   updateProfile(profileInput: ProfileInput!): String!
   updatePassword(passwordInput: PasswordInput!): String!
 }

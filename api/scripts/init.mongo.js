@@ -41,12 +41,12 @@ db.userCounters.insert({ _id: 'users', current: 0 });
 
 const typesDB = 
 [
-  {id:0, symbol:"ETH", description:"test", price:10},
-  {id:1, symbol:"BTC", description:"test", price:20},
-  {id:2, symbol:"XRP", description:"test", price:30},
-  {id:3, symbol:"BNB", description:"test", price:40},
-  {id:4, symbol:"AMD", description:"test", price:50},
-  {id:5, symbol:"AAPL", description:"test", price:60}
+  {id:0, symbol:"ETH", description:"test", price:0},
+  {id:1, symbol:"BTC", description:"test", price:0},
+  {id:2, symbol:"XRP", description:"test", price:0},
+  {id:3, symbol:"BNB", description:"test", price:0},
+  {id:4, symbol:"AMD", description:"test", price:0},
+  {id:5, symbol:"AAPL", description:"test", price:0}
 ];
 db.types.remove({});
 db.types.insertMany(typesDB);
@@ -75,26 +75,26 @@ db.currentUser.remove({});
 db.currentUser.insert({ _id: 'currentUser', currentId: -1, email: '', photoURL: '' });
 
 db.orders.remove({});
-db.orders.createIndex({ id: 1 });
-db.orders.createIndex({ userId: 1 });
-db.orders.createIndex({ currentState: 1 });
-db.orders.createIndex({ symbol: 1 });
-db.orders.createIndex({ quantity: 1 });
-db.orders.createIndex({ price: 1 });
-db.orders.createIndex({ amount: 1 });
+// db.orders.createIndex({ id: 1 });
+// db.orders.createIndex({ userId: 1 });
+// db.orders.createIndex({ currentState: 1 });
+// db.orders.createIndex({ symbol: 1 });
+// db.orders.createIndex({ quantity: 1 });
+// db.orders.createIndex({ price: 1 });
+// db.orders.createIndex({ amount: 1 });
 
 db.orderCounters.remove({});
 
-db.rabbitmq.remove({});
-db.rabbitmq.createIndex({ id: 1 });
-db.rabbitmq.createIndex({ userId: 1 });
-db.rabbitmq.createIndex({ state: 1 });
-db.rabbitmq.createIndex({ symbol: 1 });
-db.rabbitmq.createIndex({ orderType: 1 });
-db.rabbitmq.createIndex({ side: 1 });
-db.rabbitmq.createIndex({ quantity: 1 });
-db.rabbitmq.createIndex({ price: 1 });
-db.rabbitmq.createIndex({ tradeId: 1 });
-db.rabbitmq.createIndex({ note: 1 });
-
-db.rabbitmqCounters.remove({});
+// db.rabbitmq.remove({});
+// db.rabbitmq.createIndex({ id: 1 });
+// db.rabbitmq.createIndex({ userId: 1 });
+// db.rabbitmq.createIndex({ state: 1 });
+// db.rabbitmq.createIndex({ symbol: 1 });
+// db.rabbitmq.createIndex({ orderType: 1 });
+// db.rabbitmq.createIndex({ side: 1 });
+// db.rabbitmq.createIndex({ quantity: 1 });
+// db.rabbitmq.createIndex({ price: 1 });
+// db.rabbitmq.createIndex({ tradeId: 1 });
+// db.rabbitmq.createIndex({ note: 1 });
+//
+// db.rabbitmqCounters.remove({});

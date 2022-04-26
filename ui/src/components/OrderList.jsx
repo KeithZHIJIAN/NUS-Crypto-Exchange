@@ -17,34 +17,36 @@ function OrderListContent(props) {
       <Box sx={{ mt: 3 }}>
       <Card>
       <CardContent>
-        <Title>Order List</Title>
+        <Title>Trade History</Title>
         <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
-              <TableCell>State</TableCell>
               <TableCell>Symbol</TableCell>
+              <TableCell>Side</TableCell>
               <TableCell>Quantity</TableCell>
+              <TableCell>Open Quantity</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Filled Cost</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {orders.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.state}</TableCell>
-                <TableCell>{row.symbol}</TableCell>
-                <TableCell>{row.quantity}</TableCell>
-                <TableCell>{`$${row.price}`}</TableCell>
-                <TableCell align="right">{`$${row.amount}`}</TableCell>
-              </TableRow>
+                <TableRow key={row.id}>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.symbol}</TableCell>
+                  <TableCell>{row.side}</TableCell>
+                  <TableCell>{row.quantity}</TableCell>
+                  <TableCell>{row.openQuantity}</TableCell>
+                  <TableCell>{`$${row.price == 0? 'Market price' : row.price}`}</TableCell>
+                  <TableCell align="right">{`$${row.filledCost}`}</TableCell>
+                </TableRow>
             ))}
           </TableBody>
         </Table>
         { props.num != -1?
           <Button variant="outlined" size="medium" onClick={() => {props.changePage('Order')}} sx={{mt: 3}}>
-            See more orders
+            See more trades
           </Button>
             :
           <Button variant="outlined" size="medium" onClick={() => {props.changePage('Assets')}} sx={{mt: 3}}>

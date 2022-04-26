@@ -29,7 +29,7 @@ const resolvers = {
   Mutation: {
     setAboutMessage: about.setMessage,
     register: user.register,
-    addHistory: history.addHistory,
+    addHistory: db.addHistory,
     walletItemBuy: wallet.walletItemBuy,
     walletItemSell: wallet.walletItemSell,
     walletItemConvert: wallet.walletItemConvert,

@@ -23,7 +23,7 @@ function InputAdornmentsContent(props) {
                     id="quantity"
                     value={values.quantity}
                     onChange={handleChange('quantity')}
-                    endAdornment={<InputAdornment position="end">{/*SGD*/}</InputAdornment>}
+                    endAdornment={<InputAdornment position="end">Quantity</InputAdornment>}
                     aria-describedby="outlined-quantity-helper-text"
                     inputProps={{
                     'aria-label': 'quantity',

@@ -139,8 +139,8 @@ export default function HomepageContent(props) {
               px: [1],
             }}
           >
-            <Button onClick={() => {props.changePage('Assets')}}><Title>NUSSwap</Title></Button>
-            <IconButton onClick={toggleDrawer}>
+            <Button onClick={() => {props.changePage('Assets')}}><Title>NUSwap</Title></Button>
+            <IconButton onClick={toggleDrawer} aria-label='showListItems'>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
