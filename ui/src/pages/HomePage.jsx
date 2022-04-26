@@ -300,9 +300,9 @@ export default class Homepage extends React.Component {
   // Also, need to talk to database to reset the current user
   async logout() {
     if (this.state.currentUser.email != '') {
+      this.setState({currentUser: account, balance: 0, types: [], wallet: [], history: []}, () => {});
       const query = `query { logout }`;
       const result = await graphQLFetch(query);
-      this.setState({currentUser: account, balance: 0, types: [], wallet: [], history: []})
       alert(result.logout);
     } else {
       alert("You have not logged in!");
