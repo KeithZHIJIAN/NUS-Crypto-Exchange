@@ -16,6 +16,12 @@
 * ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
 * ```cd NUS-Crypto-Exchange-FrontEnd```
 * ```git checkout origin/main```
+    * ```apt install curl```
+    * ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash```
+    * ```export NVM_DIR="$HOME/.nvm"```
+    * ```[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm```
+    * ```nvm install 10```
+    * ```nvm alias default 10```
 * (Automatically setup)
     * ```npm run start```
         * Follow the installation process (such as press 'Y')
