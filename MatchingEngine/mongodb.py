@@ -4,7 +4,7 @@ from decimal import Decimal
 
 def connectDatabase():
     client = MongoClient("localhost", 27017, maxPoolSize=50)
-    return client["NUSSwap"]
+    return client["NUSwap"]
 
 
 def db_create_order(collection, id, symbol, side, quantity, price, userId):
