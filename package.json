@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "This is a front end project for nus crypto exchange",
   "scripts": {
-    "start": "npm run rabbitmq && cd api && npm run api && cd .. && cd ui && npm run ui && cd .. && npm run matchingEngine",
-    "matchingEngine": "pip install -r ./MatchingEngine/requirements.txt && screen python3 ./MatchingEngine/main.py",
+    "start": "npm run installation && npm run rabbitmq && cd api && npm run api && cd .. && cd ui && npm run ui && cd .. && npm run matchingEngine",
+    "matchingEngine": "apt-get update && apt install python3-pip && pip install -r ./MatchingEngine/requirements.txt && screen python3 ./MatchingEngine/main.py",
     "rabbitmq": "service rabbitmq-server restart",
+    "rabbitmqInstallation": "apt-get install erlang-nox && apt-get update && apt-get install rabbitmq-server && service rabbitmq-server start && rabbitmq-plugins enable rabbitmq_management",
+    "mongodbInstallation": "apt install gnupg && curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && echo \"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse\" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && apt update && apt install mongodb-org && mkdir -p /data/db",
+    "screenInstallation": "apt-get install screen",
+    "installation": "npm run screenInstallation && npm run mongodbInstallation && npm run rabbitmqInstallation",
     "dbInit": "cd api && npm run dbInit"
   },
   "repository": {
