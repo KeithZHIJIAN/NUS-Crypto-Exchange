@@ -34,6 +34,7 @@
             * ```npm run fast```
     * (for MatchingEngine)
         * ```cd MatchingEngine```
+            * ```pip install -r ./MatchingEngine/requirements.txt```
             * ```screen python3 main.py```
 
 ## Web Browser

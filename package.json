@@ -4,7 +4,7 @@
   "description": "This is a front end project for nus crypto exchange",
   "scripts": {
     "start": "npm run rabbitmq && cd api && npm run api && cd .. && cd ui && npm run ui && cd .. && npm run matchingEngine",
-    "matchingEngine": "screen python3 ./MatchingEngine/main.py",
+    "matchingEngine": "pip install -r ./MatchingEngine/requirements.txt && screen python3 ./MatchingEngine/main.py",
     "rabbitmq": "service rabbitmq-server restart",
     "dbInit": "cd api && npm run dbInit"
   },

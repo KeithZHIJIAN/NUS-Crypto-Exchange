@@ -1,4 +1,3 @@
-from textwrap import fill
 from multimap import MultiMap
 from order import Order
 from ordertracker import OrderTracker
