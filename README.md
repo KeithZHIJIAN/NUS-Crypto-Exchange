@@ -125,6 +125,15 @@
 
 ## Message structure(RabbitMQ)
 * ******
+        * Add Symbol Type Side Quantity Price TradeID*
+        * add ETHUSD limit ask 100 64000 001*
+        
+        * Modify Symbol Order ID Quantity Price*
+        * modify ETHUSD 0000000002 0 64000*
+        * modify ethusd 0000000002 100 0*
+        
+        * Cancel Symbol OrderID*
+        * cancel ETHUSD 0000000001*
   
 ## RabbitMQ installation
 * ```apt-get install erlang-nox```
