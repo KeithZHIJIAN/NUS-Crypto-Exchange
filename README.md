@@ -124,7 +124,6 @@
         * current: *[Int]*
 
 ## Message structure(RabbitMQ)
-* ******
         * Add Symbol Type Side Quantity Price TradeID*
         * add ETHUSD limit ask 100 64000 001*
         
