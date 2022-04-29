@@ -19,10 +19,10 @@
     * ```[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm```
     * ```nvm install 10```
     * ```nvm alias default 10```
+------
 * ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
 * ```cd NUS-Crypto-Exchange-FrontEnd```
 * ```git checkout origin/main```
-------
 * (Automatically setup)
     * ```npm run start```
         * Follow the installation process (such as press 'Y')
@@ -31,7 +31,6 @@
             * one for api server
             * one for ui server
             * one for matching engine
-------
 * (Manully setup)
     * ```npm run installation```
     * ```service rabbitmq-server restart```
