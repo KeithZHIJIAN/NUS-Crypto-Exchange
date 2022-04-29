@@ -1,7 +1,7 @@
-# NUS-Crypto-Exchange-FrontEnd
+# NUS-Crypto-Exchange
 
 ## Git
-* https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git
+* https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git
 
 ## Port Usage
 * api server: 3000
@@ -20,8 +20,8 @@
     * ```nvm install 10```
     * ```nvm alias default 10```
 ------
-* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
-* ```cd NUS-Crypto-Exchange-FrontEnd```
+* ```git clone https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git```
+* ```cd NUS-Crypto-Exchange```
 * ```git checkout origin/main```
 * (Automatically setup)
     * ```npm run start```
