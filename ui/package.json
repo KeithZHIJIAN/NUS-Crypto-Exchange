@@ -1,5 +1,5 @@
 {
-  "name": "NUS-Crypto-Exchange-FrontEnd",
+  "name": "NUS-Crypto-Exchange",
   "version": "1.0.0",
   "description": "This is a front end project for nus crypto exchange",
   "main": "index.js",
@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git"
+    "url": "git+https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git"
   },
   "author": "hewenbin243854232@outlook.com",
   "license": "ISC",
-  "homepage": "https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git",
+  "homepage": "https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git",
   "dependencies": {
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
