@@ -13,15 +13,16 @@
 * ```docker run -it --name NUSwap -d -p 5672:5672 -p 15672:15672 -p 3000:3000 -p 5000:5000 -p 8000:8000 -dit ubuntu:latest```
     * ```apt update```
     * ```apt install git```
-* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
-* ```cd NUS-Crypto-Exchange-FrontEnd```
-* ```git checkout origin/main```
     * ```apt install curl```
     * ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash```
     * ```export NVM_DIR="$HOME/.nvm"```
     * ```[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm```
     * ```nvm install 10```
     * ```nvm alias default 10```
+* ```git clone https://github.com/HeWenbin-bobo/NUS-Crypto-Exchange-FrontEnd.git```
+* ```cd NUS-Crypto-Exchange-FrontEnd```
+* ```git checkout origin/main```
+***
 * (Automatically setup)
     * ```npm run start```
         * Follow the installation process (such as press 'Y')
@@ -30,6 +31,7 @@
             * one for api server
             * one for ui server
             * one for matching engine
+***
 * (Manully setup)
     * ```npm run installation```
     * ```service rabbitmq-server restart```
