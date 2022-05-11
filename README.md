@@ -25,7 +25,6 @@
     * ```apt update```
     * ```apt install mongodb-org```
     * ```mkdir -p /data/db```
-    * ```screen mongod```
 ------
 * ```git clone https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git```
 * ```cd NUS-Crypto-Exchange```
