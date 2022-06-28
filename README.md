@@ -1,0 +1,42 @@
+# NUS-Crypto-Exchange
+
+## Git
+* https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git
+
+## Port Usage
+* backend server: 4000
+* frontend server: 3000
+* rabbitmq: 5672
+* rabbitmq web management: 15672
+
+## Node Setup
+ * ```sudo apt update```
+ * ```sudo apt install curl```
+ * ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash```
+ * ```export NVM_DIR="$HOME/.nvm"```
+ * ```[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm```
+ * ```nvm install 14```
+ * ```nvm alias default 14```
+
+ ## PostgreSQL Setup
+ * ```sudo apt update```
+ * ```sudo apt install postgresql postgresql-contrib```
+ * ```sudo systemctl start postgresql.service```
+
+## RabbitMQ installation
+* ```apt-get install erlang-nox```
+* ```erl```
+* ```apt-get update```
+* ```apt-get install rabbitmq-server```
+* ```service rabbitmq-server start```
+* ```service rabbitmq-server status```
+* ```rabbitmq-plugins enable rabbitmq_management```
+* ```service rabbitmq-server restart```
+
+## Python3 installation
+* ```apt-get update```
+* ```apt-get install python3```
+* ```apt install python3-pip```
+* ```pip install pymongo```
+* ```pip install sortedcontainers```
+* ```pip install pika```

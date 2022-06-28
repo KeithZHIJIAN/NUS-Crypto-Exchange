@@ -1,0 +1,17 @@
+{
+  "name": "nus-crypto-exchange",
+  "version": "1.0.0",
+  "description": "A simulated crypto exchange for educational use",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "sudo rm -rf nce-backend && sudo rm -rf nce-matchingengine && sudo rm -rf nce-frontend",
+    "pull": "git clone https://github.com/sheshenk/nce-backend.git && git clone https://github.com/sheshenk/nce-frontend.git && git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git",
+    "init": "cp ../.env nce-matchingengine/ && cd nce-matchingengine && python3 init.database.py && screen python3 main.py && python3 init.orderbook.py && cd ..",
+    "backend": "cd nce-backend && npm install && screen npm start && cd ..",
+    "frontend": "cd nce-frontend && npm install && screen npm start && cd ..",
+    "start": "npm run clean && npm run pull && npm run init && npm run backend && npm run frontend"
+  },
+  "author": "Pitchappan & Zhi Jian",
+  "license": "ISC"
+}
