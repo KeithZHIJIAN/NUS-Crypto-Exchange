@@ -40,3 +40,11 @@
 * ```pip install pymongo```
 * ```pip install sortedcontainers```
 * ```pip install pika```
+
+## To run on localhost:3000
+* ```cd NUS-Crypto-Exchange```
+* ```npm start```
+
+## Already had a nginx
+* ```cd NUS-Crypto-Exchange```
+* ```npm run production```
