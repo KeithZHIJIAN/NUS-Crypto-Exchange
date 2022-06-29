@@ -9,7 +9,7 @@
 * rabbitmq: 5672
 * rabbitmq web management: 15672
 
-## Node Setup
+## Node Installation
  * ```sudo apt update```
  * ```sudo apt install curl```
  * ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash```
@@ -23,7 +23,7 @@
  * ```sudo apt install postgresql postgresql-contrib```
  * ```sudo systemctl start postgresql.service```
 
-## RabbitMQ installation
+## RabbitMQ Installation
 * ```apt-get install erlang-nox```
 * ```erl```
 * ```apt-get update```
@@ -37,9 +37,10 @@
 * ```apt-get update```
 * ```apt-get install python3```
 * ```apt install python3-pip```
-* ```pip install pymongo```
 * ```pip install sortedcontainers```
 * ```pip install pika```
+* ```pip install sqlalchemy```
+* ```pip install pandas```
 
 ## To run on localhost:3000
 * ```cd NUS-Crypto-Exchange```
