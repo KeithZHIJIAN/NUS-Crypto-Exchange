@@ -10,7 +10,8 @@
     "backend": "git clone https://github.com/sheshenk/nce-backend.git && cd nce-backend && npm install && screen npm start && cd ..",
     "frontend": "git clone https://github.com/sheshenk/nce-frontend.git && cd nce-frontend && npm install && screen npm start && cd ..",
     "start": "npm run clean && npm run matchingengine && npm run backend && npm run frontend",
-    "production": "npm run clean && npm run matchingengine && npm run backend"
+    "production": "npm run clean && npm run matchingengine && npm run backend",
+    "web": "cd nce-backend && screen npm start && cd ../nce-frontend && screen npm start"
   },
   "author": "Pitchappan & Zhi Jian",
   "license": "ISC"
