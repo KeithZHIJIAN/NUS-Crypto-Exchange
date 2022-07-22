@@ -6,10 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "screen python3 && screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill && sudo rm -rf nce-backend && sudo rm -rf nce-matchingengine && sudo rm -rf nce-frontend",
-    "matchingengine": "git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git && cp .env nce-matchingengine/ && cd nce-matchingengine && python3 init.database.py && screen python3 main.py && python3 init.orderbook.py && cd ..",
+    "python": "git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git && cp .python nce-matchingengine/.env && cd nce-matchingengine && python3 init.database.py && screen python3 main.py && python3 init.orderbook.py && cd ..",
+    "go": "git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git && cd nce-matchingengine && git checkout golang-version && cp ../.golang .env && ./init/db/init.database && screen go run . && ./init/mq/init.orderbook && cd ..",
     "backend": "git clone https://github.com/sheshenk/nce-backend.git && cd nce-backend && npm install && screen npm start && cd ..",
     "frontend": "git clone https://github.com/sheshenk/nce-frontend.git && cd nce-frontend && npm install && screen npm start && cd ..",
-    "start": "npm run clean && npm run matchingengine && npm run backend && npm run frontend",
+    "startpython": "npm run clean && npm run python && npm run backend && npm run frontend",
+    "startgo": "npm run clean && npm run go && npm run backend && npm run frontend",
     "production": "npm run clean && npm run matchingengine && npm run backend",
     "web": "cd nce-backend && screen npm start && cd ../nce-frontend && screen npm start"
   },
