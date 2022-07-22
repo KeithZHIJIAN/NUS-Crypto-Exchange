@@ -12,7 +12,8 @@
     "frontend": "git clone https://github.com/sheshenk/nce-frontend.git && cd nce-frontend && npm install && screen npm start && cd ..",
     "startpython": "npm run clean && npm run python && npm run backend && npm run frontend",
     "startgo": "npm run clean && npm run go && npm run backend && npm run frontend",
-    "production": "npm run clean && npm run matchingengine && npm run backend",
+    "productionpython": "npm run clean && npm run python && npm run backend",
+    "productiongo": "npm run clean && npm run go && npm run backend",
     "web": "cd nce-backend && screen npm start && cd ../nce-frontend && screen npm start"
   },
   "author": "Pitchappan & Zhi Jian",
