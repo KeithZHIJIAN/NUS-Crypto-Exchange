@@ -57,7 +57,7 @@
 * ```go run ./init/db/main.go ```
 * ```screen go run ./cmd/main.go // when u see HistoricalMarketAgent: "Market history websocket connection estbalished" and "OrderBookAgentStart: Order Book websocket connection estbalished", the matching engine is set up.```
 
-## Now access localhost:3000, u should be able to see the ui. If the order book is always loading, check if the matchinf engine is down.
+## Now access localhost:3000, u should be able to see the ui. If the order book is always loading, check if the matching engine is down.
 
 
 
