@@ -53,7 +53,7 @@
 * ```git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git```
 * ```cd nce-matchingengine/```
 * ```go mod tidy```
-* ```* ```cp ../.golang .env```
+* ```cp ../.golang .env```
 * ```go run ./init/db/main.go ```
 * ```screen go run ./cmd/main.go // when u see HistoricalMarketAgent: "Market history websocket connection estbalished" and "OrderBookAgentStart: Order Book websocket connection estbalished", the matching engine is set up.```
 
