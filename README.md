@@ -4,10 +4,11 @@
 * https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git
 
 ## Port Usage
-* backend server: 4000
-* frontend server: 3000
-* rabbitmq: 5672
-* rabbitmq web management: 15672
+* back end (restful): 4000
+* back end (graphql): 4000
+* front end: 3000
+
+# Preparation
 
 ## Node Installation
  * ```sudo apt update```
@@ -22,25 +23,13 @@
  * ```sudo apt update```
  * ```sudo apt install postgresql postgresql-contrib```
  * ```sudo systemctl start postgresql.service```
-
-## RabbitMQ Installation
-* ```apt-get install erlang-nox```
-* ```erl```
-* ```apt-get update```
-* ```apt-get install rabbitmq-server```
-* ```service rabbitmq-server start```
-* ```service rabbitmq-server status```
-* ```rabbitmq-plugins enable rabbitmq_management```
-* ```service rabbitmq-server restart```
+ 
+  Create a user and database table based on the ```.env``` file
 
 ## Python3 installation
 * ```apt-get update```
 * ```apt-get install python3```
 * ```apt install python3-pip```
-* ```pip install sortedcontainers```
-* ```pip install pika```
-* ```pip install sqlalchemy```
-* ```pip install pandas```
 
 ## Golang installation
 * ```cd ~```
@@ -48,10 +37,28 @@
 * ```sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz```
 * ```export PATH=$PATH:/usr/local/go/bin```
 
-## To run on localhost:3000
-* ```cd NUS-Crypto-Exchange```
-* ```npm start```
+# Deploy on local host
+* ```git clone https://github.com/KeithZHIJIAN/NUS-Crypto-Exchange.git```
+* ```cd NUS-Crypto-Exchange/```
+* ```npm run clean //When you stuck at the python console, press ctrl+a+d```
+* ```git clone https://github.com/sheshenk/nce-frontend.git```
+* ```cd nce-frontend/```
+* ```npm install```
+* ```cd ../```
+* ```git clone https://github.com/sheshenk/nce-backend.git```
+* ```cd nce-backend/```
+* ```npm install```
+* ```cd ../```
+* ```npm run web // when u see 🚀 Server ready at http://localhost:4000/graphql, press ctrl+a+d. when u see the website is fully loaded, press ctrl+a+d again.```
+* ```git clone https://github.com/KeithZHIJIAN/nce-matchingengine.git```
+* ```cd nce-matchingengine/```
+* ```go mod tidy```
+* ```* ```cp ../.golang .env```
+* ```go run ./init/db/main.go ```
+* ```screen go run ./cmd/main.go // when u see HistoricalMarketAgent: "Market history websocket connection estbalished" and "OrderBookAgentStart: Order Book websocket connection estbalished", the matching engine is set up.```
 
-## Already had a nginx
-* ```cd NUS-Crypto-Exchange```
-* ```npm run production```
+## Now access localhost:3000, u should be able to see the ui. If the order book is always loading, check if the matchinf engine is down.
+
+
+
+
