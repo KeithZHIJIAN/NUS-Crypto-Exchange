@@ -25,6 +25,9 @@
  * ```sudo systemctl start postgresql.service```
  
   Create a user and database table based on the ```.env``` file
+ 
+## SCREEN
+* ```sudo apt-get install screen```
 
 ## Python3 installation
 * ```apt-get update```
